@@ -215,5 +215,5 @@ Automation should focus on:
 - Generating structured reports or Jira tickets
 - Alerting on baseline deviations or visibility gaps
 
-Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time—and that our analysts stay focused on thinking, not fetching.
+Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that our analysts stay focused on thinking, not fetching.
 
