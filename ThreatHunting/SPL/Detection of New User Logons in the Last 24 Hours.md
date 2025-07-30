@@ -2,7 +2,7 @@
 
 ## 🔍 Analysis
 
-This Splunk SPL query identifies **user accounts that have logged into systems for the first time in the past 24 hours**, using Windows Security Event ID `4624`. The detection specifically focuses on logon types:
+This Splunk SPL query identifies **user accounts that have logged into systems for the first time in the past 24 hours**, using Windows Security Event ID `4624`. TO use effectively run this query over a longer period of time such as 30, 60, or 90 days to build a baseline of logons. The detection specifically focuses on logon types:
 
 - **2 – Interactive (e.g., console logon)**
 - **3 – Network (e.g., SMB or RDP without GUI)**
