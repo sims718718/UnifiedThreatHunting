@@ -60,7 +60,7 @@ For our organization, we use these along with a few additional triggers such as 
 
 Some frameworks begin the threat hunt with the initial **Hypothesis** (step 2 here), but I ask: how do you come to that hypothesis in the first place?
 
-There is likely a triggering event that leads to the initial hypothesis. Just as Isaac Newton watched an apple fall before wondering what force pulled it down that apple was the triggering event that led to a hypothesis about gravity. Similarly, we should have a trigger before we even get to a hypothesis.
+There is likely a triggering event that leads to the initial hypothesis. Just as Isaac Newton watched an apple fall before wondering what force pulled it down, _that apple was the triggering event that led to a hypothesis about gravity._ Similarly, we should have a trigger before we even get to a hypothesis.
 
 <img width="636" height="186" alt="image" src="https://github.com/user-attachments/assets/a31b8b5f-3e0d-43aa-9a64-a320d004a83b" />
 
