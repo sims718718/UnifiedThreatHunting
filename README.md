@@ -80,11 +80,22 @@ From data science principles, your hypothesis is about creating testable stateme
 - **Relevant**: Should align with organizational goals. Make it meaningful to the mission.
 - **Time-bound**: Establish deadlines. No never-ending hunts.
 
+When building a hypothesis you may actually create numerous hypotheses. A book to read regarding this is _Psychology of intelligence by_ by Richards J. Heuer which was published by the CIA's Center for the Study of Intelligence. Heuer decribes Competing Hypotheses which is benfical to your hunting efforts. The process draws on defining multiple hypothesis and determining the most valid among them. This process provides rigor the hypothesis building which can help define the basis of the hunt. There are 7 steps that describes:
+    1. Enumerate all hypotheses
+    2. Seeking supporting evidnece for each hypothesis
+    3. Compare evidence against the hypotheses. Heuer buidls a matrix to do this.
+    4. Remove evidnece that has little value through the matrix.
+    5. Prioritize hypthesis by likelyhood
+    6. See which conclusion rely on too small amount of evidnece. Also, consdier if evidnece is incorrect.
+    7. Document comparison of your hypothesis comparisons.
+    
+The next two phases lean into this process for defining if a hunt should or should not be executed based on a hypothesis.    
+
 Additionally, a key concept from the AIMOD2 framework is the underlying hypothesis of **assumed breach**. We are focusing on identifying the unknown, under the assumption that an adversary has already bypassed our controls.
 
 ---
 
-## Initial Assessment
+### Initial Assessment
 
 In the **Initial Assessment** phase, we collect and research data to support our hypothesis. This includes both internal and external sources.
 
@@ -97,7 +108,7 @@ The goal is not to become an expert on a system, but to develop sufficient under
 
 ---
 
-## Feasibility Assessment
+### Feasibility Assessment
 
 Before planning our hunt activities, we need to assess feasibility. This includes:
 
