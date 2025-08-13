@@ -80,7 +80,10 @@ From data science principles, your hypothesis is about creating testable stateme
 - **Relevant**: Should align with organizational goals. Make it meaningful to the mission.
 - **Time-bound**: Establish deadlines. No never-ending hunts.
 
-When building a hypothesis you may actually create numerous hypotheses. A book to read regarding this is _Psychology of intelligence by_ by Richards J. Heuer which was published by the CIA's Center for the Study of Intelligence. Heuer decribes Competing Hypotheses which is benfical to your hunting efforts. The process draws on defining multiple hypothesis and determining the most valid among them. This process provides rigor the hypothesis building which can help define the basis of the hunt. There are 7 steps that describes:
+When building a hypothesis you may actually create numerous hypotheses. A book to read regarding this is _Psychology of intelligence by_ by Richards J. Heuer which was published by the CIA's Center for the Study of Intelligence. Heuer decribes Competing Hypotheses which is benfical to your hunting efforts. 
+
+The process draws on defining multiple hypothesis and determining the most valid among them. This process provides rigor the hypothesis building which can help define the basis of the hunt. There are 7 steps that describes:
+
     1. Enumerate all hypotheses
     2. Seeking supporting evidnece for each hypothesis
     3. Compare evidence against the hypotheses. Heuer buidls a matrix to do this.
