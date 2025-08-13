@@ -40,9 +40,9 @@ This Unified Threat Hunting Process is a combination of many of these frameworks
 
 ## Types of Threat Hunting
 
-There are various methods described for conducting hunt operations: structured, unstructured, TTP-focused, intel-focused, data-driven, etc. While this Unified Threat Hunting Process may seem structured, that doesn’t mean your hypothesis can’t be driven by data in an unstructured manner.
+There are various methods described for conducting hunt operations: structured, unstructured, TTP-focused, intel-focused, data-driven, etc. While this Unified Threat Hunting Process may seem structured, that doesn’t mean your hypothesis can’t be driven by data in an unstructured manner. This process aims to incorporate various types of threat hunting allowing a modular approach. Really we would use all of these techniques to ensure we are thoroughly testing our hypothesis.
 
-Following the PACE method for data analysis and regardless of your hypothesis you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
+Following data science principles and regardless of your hypothesis, you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
 
 ---
 
@@ -80,7 +80,7 @@ From data science principles, your hypothesis is about creating testable stateme
 - **Relevant**: Should align with organizational goals. Make it meaningful to the mission.
 - **Time-bound**: Establish deadlines. No never-ending hunts.
 
-When building a hypothesis you may actually create numerous hypotheses. A book to read regarding this is _Psychology of intelligence by_ by Richards J. Heuer which was published by the CIA's Center for the Study of Intelligence. Heuer decribes Competing Hypotheses which is benfical to your hunting efforts. 
+When building a hypothesis you may actually create numerous hypotheses. A book to read regarding this is _Psychology of intelligence_ by Richards J. Heuer which was published by the CIA's Center for the Study of Intelligence. Heuer decribes Competing Hypotheses which is benfical to your hunting efforts. 
 
 The process draws on defining multiple hypothesis and determining the most valid among them. This process provides rigor the hypothesis building which can help define the basis of the hunt. There are 7 steps that describes:
 
