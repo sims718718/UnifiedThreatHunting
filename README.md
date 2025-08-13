@@ -172,15 +172,16 @@ Different subjects, same hypothesis. As we may need various tests to complete th
 ### Hunt Execution Steps
 
 - **Gather and Analyze Data**  
-  Retrieve from designated sources  
-  - Filtering and querying  
-  - Advanced analytics (clustering, statistical methods, ML)  
-  - Cross-reference with threat intel  
+  - Retrieve from designated sources
+  - Understand the Data   
+  - Data cleaning, transforming and modeling  
 
 - **Investigate and Validate Threats**  
-  - Test hypothesis against findings  
-  - Validate anomalies using threat patterns (e.g., MITRE ATT&CK)  
-  - Refine hypothesis as needed  
+  - Test hypothesis against data and refine hypothesis as needed
+  - Filtering and querying
+  - Temporal and trend Data Analysis  
+  - Advanced analytics (clustering, statistical methods, ML)
+  - Known TTPs   
 
 - **Document Observations and Insights**  
   - Anomalies and insights  
