@@ -42,7 +42,11 @@ This Unified Threat Hunting Process is a combination of many of these frameworks
 
 There are various methods described for conducting hunt operations: structured, unstructured, TTP-focused, intel-focused, data-driven, etc. While this Unified Threat Hunting Process may seem structured, that doesn’t mean your hypothesis can’t be driven by data in an unstructured manner. This process aims to incorporate various types of threat hunting allowing a modular approach. Really we would use all of these techniques to ensure we are thoroughly testing our hypothesis.
 
-Following data science principles and regardless of your hypothesis, you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
+We are aiming on develop a modular approach to threat hunting where there is not a one size fits all. Use all the techniques at your disposal.
+
+Following data science principles and regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
+
+While typically you want to focus on behaviors or TTPs, sometimes IoCs have their merit if they are truely actionable and timely. WHile I do not beleive hunting IoCs across an envionrment is really threat hunting they could still provide useful information and another starting point. They can be a part of the cycle of your hunt but not the entire hunt itself.
 
 ---
 
