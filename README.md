@@ -245,6 +245,7 @@ Ultimately, hunts should not be one-time events. They should be **repeatable, me
 - <https://aimod2.com/>
 - <https://github.com/TactiKoolSec/OTHF>
 - <https://threathunterplaybook.com/intro.html>
+- <https://cloud.google.com/transform/how-google-does-it-modernizing-threat-detection>
 
 
 
