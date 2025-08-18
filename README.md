@@ -194,7 +194,7 @@ Different subjects, same hypothesis. As we may need various tests to complete th
   - Data Sources
   - TTP coverage
 
-By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of @Cyb3rWard0g that were easy to reference and made reporting more efficient. These stories/playbooks also served as a hunt repository where we could reference previous hunts too.
+By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of <https://threathunterplaybook.com/intro.html> that were easy to reference and made reporting more efficient. These stories/playbooks also served as a hunt repository where we could reference previous hunts too.
 
 ---
 
