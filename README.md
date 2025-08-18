@@ -200,7 +200,7 @@ By using tools like Jira, documentation becomes a lightweight playbook. Our team
 
 ### Tasks (Outcomes)
 
-Tasks log the **results** of the hunt and are linked to their Epic for tracking purposes. They contain outcomes such as (many pulled from PEAK Framework):
+Tasks log the **results** of the hunt and are linked to their Epic for tracking purposes. They contain outcomes such as (mainly from PEAK and AIMOD2 Frameworks):
 
 - **New Hunt Ideas** – Future hypotheses or Use Cases to explore
 - **Analytics/Detection** – Rules, dashboards, or signatures created
