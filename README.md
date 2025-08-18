@@ -200,7 +200,7 @@ By using tools like Jira, our documentation becomes a lightweight playbook. Our 
 
 Tasks log the **results** of the hunt and are linked to their Epic for tracking purposes. They contain outcomes such as (many pulled from PEAK Framework):
 
-- **New Hunt Ideas** – Future hypotheses to explore
+- **New Hunt Ideas** – Future hypotheses or Use Cases to explore
 - **Analytics/Detection** – Rules, dashboards, or signatures created
 - **Security Incident** – Escalation to IR and/or incidents opened
 - **Written Report** – Final hunt report
