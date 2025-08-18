@@ -192,7 +192,7 @@ Different subjects, same hypothesis. As we may need various tests to complete th
   - Hypothesis changes  
   - Techniques used  
 
-By using tools like Jira, our documentation becomes a lightweight playbook. Our team naturally began developing structured hunts that were easy to reference and made reporting more efficient.
+By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of @Cyb3rWard0g that were easy to reference and made reporting more efficient.
 
 ---
 
@@ -237,4 +237,12 @@ Automation should focus on:
 - Alerting on baseline deviations or visibility gaps
 
 Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that our analysts stay focused on thinking, not fetching.
+
+#### References:
+<https://www.splunk.com/en_us/blog/security/peak-threat-hunting-framework.html>
+<https://aimod2.com/>
+<https://github.com/TactiKoolSec/OTHF>
+<https://threathunterplaybook.com/intro.html>
+
+
 
