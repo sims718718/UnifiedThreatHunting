@@ -198,14 +198,16 @@ By using tools like Jira, our documentation becomes a lightweight playbook. Our 
 
 ### Tasks (Outcomes)
 
-Tasks log the **results** of the hunt and are linked to their Epic for tracking purposes. They contain outcomes such as:
+Tasks log the **results** of the hunt and are linked to their Epic for tracking purposes. They contain outcomes such as (many pulled from PEAK Framework):
 
 - **New Hunt Ideas** – Future hypotheses to explore
 - **Analytics/Detection** – Rules, dashboards, or signatures created
-- **Security Incident** – Escalation to IR
+- **Security Incident** – Escalation to IR and/or incidents opened
 - **Written Report** – Final hunt report
 - **Visibility Gap** – Missing telemetry identified
 - **Security Control Issue** – Gaps in existing defenses
+
+Metrics are essential to a hunting program as your management likely thinks in numbers. Quantatifable metrics are essential for measuing the effectiveness of your efforts. Addtionally, we also must consider what metrics actually matter and what could be considered bad metrics. We should shy away from metrics simply tracking work (hours spent) or how many hunts have been executed for more meaningful. The metrics should help as the question **"so what?"**
 
 ---
 
