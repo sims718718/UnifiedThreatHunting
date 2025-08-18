@@ -23,7 +23,7 @@ graph LR
 
 To put it simply, threat hunting is the act of proactively searching for and identifying threats that have bypassed security controls. There’s some leeway in this definition, but the core idea is that it is proactive and seeks to identify the unknown.
 
-Now, the real question is: **how** do you accomplish threat hunting?
+Now, the real question is: **how** do you accomplish threat hunting that is meaningful?
 
 There are multitudes of frameworks out there including PEAK, TaHiTI, OTHF, AIMOD2 and likely even more that I’ve missed. However, this begs key questions when building a program and defining processes:
 
