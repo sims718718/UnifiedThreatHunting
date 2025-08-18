@@ -207,7 +207,7 @@ Tasks log the **results** of the hunt and are linked to their Epic for tracking 
 - **Visibility Gap** – Missing telemetry identified
 - **Security Control Issue** – Gaps in existing defenses
 
-Metrics are essential to a hunting program as your management likely thinks in numbers. Quantatifable metrics are essential for measuing the effectiveness of your efforts. Addtionally, we also must consider what metrics actually matter and what could be considered bad metrics. We should shy away from metrics simply tracking work (hours spent) or how many hunts have been executed for more meaningful. The metrics should help as the question **"so what?"**
+Metrics are essential to a hunting program as your management likely thinks in numbers. Quantatifable metrics are essential for measuing the effectiveness of your efforts and prove a level a maturity. Addtionally, we also must consider what metrics actually matter and what could be considered bad metrics. We should shy away from metrics simply tracking work (hours spent) or how many hunts have been executed for more meaningful. The metrics should help as the question **"so what?"**
 
 ---
 
