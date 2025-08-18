@@ -239,10 +239,10 @@ Automation should focus on:
 Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that our analysts stay focused on thinking, not fetching.
 
 #### References:
-<https://www.splunk.com/en_us/blog/security/peak-threat-hunting-framework.html>
-<https://aimod2.com/>
-<https://github.com/TactiKoolSec/OTHF>
-<https://threathunterplaybook.com/intro.html>
+- <https://www.splunk.com/en_us/blog/security/peak-threat-hunting-framework.html>
+- <https://aimod2.com/>
+- <https://github.com/TactiKoolSec/OTHF>
+- <https://threathunterplaybook.com/intro.html>
 
 
 
