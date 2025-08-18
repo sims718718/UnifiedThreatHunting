@@ -190,9 +190,11 @@ Different subjects, same hypothesis. As we may need various tests to complete th
 - **Document Observations and Insights**  
   - Anomalies and insights  
   - Hypothesis changes  
-  - Techniques used  
+  - Techniques used
+  - Data Sources
+  - TTP coverage
 
-By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of @Cyb3rWard0g that were easy to reference and made reporting more efficient.
+By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of @Cyb3rWard0g that were easy to reference and made reporting more efficient. These stories/playbooks also served as a hunt repository where we could reference previous hunts too.
 
 ---
 
