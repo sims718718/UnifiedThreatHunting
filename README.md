@@ -46,7 +46,7 @@ We are aiming on develop a modular approach to threat hunting where there is not
 
 Following data science principles and regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
 
-**Note** While typically you want to focus on behaviors or TTPs, sometimes IoCs have their merit if they are truely actionable and timely. While I do not beleive hunting IoCs across an envionrment is really threat hunting they could still provide useful information and another starting point. They can be a part of the cycle of your hunt but not the entire hunt itself.
+**Note:** While typically you want to focus on behaviors or TTPs, sometimes IoCs have their merit if they are truely actionable and timely. While I do not believe hunting IoCs across an envionrment is really threat hunting, they could still provide useful information and another starting point. They can be a part of the cycle of your hunt but not the entire hunt itself.
 
 ---
 
