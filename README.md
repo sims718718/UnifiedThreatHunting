@@ -161,7 +161,7 @@ Represents the overarching hypothesis or theme of the hunt. We include:
 
 ### Stories (Hunts)
 
-These are the discrete investigations or tests aligned to the Epic’s hypothesis. You can have one or more stories under a hypothesis to ultimately **prove or disprove** it. Each story should reflect a single thought process.
+These are the discrete investigations or tests aligned to the Epic’s hypothesis. You can have one or more stories under a hypothesis to ultimately **prove or disprove** it. Each story should reflect a single thought process and function as a test. The idea of developing multiple tests is not not only to thouroughly investigate your hypothesis, but to also challenge any initial thought processes. We should be **challenging what you already know.** Remember threat hunting is about chasing the unknown and while you should cover your basis for a simple test (i.e string search for encoded commands) we should strive to think harder and deeper if we really want to find the unknown. I believe there should be some level of struggle in the hunting process otherwise you are probably not learning and likely implementing a hunt that already exists. If that is the case then ask yourself what is the point?
 
 Example:  
 If my hypothesis is about anomalous logon events from administrative accounts, I might have two stories:
@@ -225,20 +225,23 @@ graph TD;
 ```
 
 
-## Automation: Enabling Repeatable Hunts
+## Automation/AI: Enabling Repeatable Hunts
 
 Now we can talk about automation. This isn’t about automating threat hunting itself hunting will always require human-driven hypothesis testing and analysis. Instead, we focus on automating the **outputs and repeatable components** of successful hunts.
 
 One of the most valuable outcomes from a hunt is a detection or analytic. Detections are straightforward they can be passed through the detection engineering pipeline and operationalized by the SOC. But not every analytic becomes a detection. Some require human review, context, or deeper analysis. Borrowing from Google SecOps’ mindset *analysts should spend less time gathering data and more time analyzing* we can apply automation to streamline those parts of the hunt that are repetitive or data-heavy.
 
-Automation should focus on:
+Automation and AI should focus on:
 - Automating recurring queries and scheduled hunts
 - Enriching data with threat intel automatically
 - Re-running validated hypotheses across new time ranges
 - Generating structured reports or Jira tickets
 - Alerting on baseline deviations or visibility gaps
+- Developing **and** challenging intial hypothesis
 
-Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that we stay focused on thinking, not fetching.
+Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that we stay focused on thinking, not fetching. Addtionally, we should use automation to save time in many steps within the threat hunting process. Use AI to help build your hunt plan or even your hypothesis even. However, never take this at face value. Challenge it, research it, understand it.
+
+Finally, thank for reading and shoutout to authors for all of the references used for this process. Have fun hunting!
 
 #### References:
 - <https://www.splunk.com/en_us/blog/security/peak-threat-hunting-framework.html>
