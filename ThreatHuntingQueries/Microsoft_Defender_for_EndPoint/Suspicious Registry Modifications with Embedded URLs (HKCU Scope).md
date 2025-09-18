@@ -2,16 +2,13 @@
 
 ## 🔍 Analysis
 
-This hunt identifies **registry key or value modifications** under the **HKEY_CURRENT_USER** (HKCU) hive that contain **HTTP/HTTPS URLs**—often a sign of:
+This hunt identifies **registry key or value modifications** under the **HKEY_CURRENT_USER** (HKCU) hive that contain **HTTP/HTTPS URLs** often a sign of:
 
 - Malicious persistence mechanisms
 - Rogue proxy configuration (e.g., setting a custom C2 proxy)
 - User-specific malware implants or downloader configuration
 - LOLBins or PowerShell scripts writing URLs to registry for later execution
 
-The detection excludes:
-- Known safe `.gov` and `.sbu` domains
-- Common benign keys like `application restart` and `ProxyServer`
 
 This registry-based detection is valuable for catching **fileless malware**, **adversary persistence**, and **network evasion** techniques.
 
@@ -40,8 +37,8 @@ DeviceRegistryEvents
 | where ActionType has_any ('RegistryValueSet','RegistryKeyCreated')
 | where RegistryValueData has_any('http','https')  // Look for common protocols indicating web traffic
 | where RegistryKey has "HKEY_CURRENT_USER"
-| where RegistryValueData !contains ".gov" and RegistryValueData !contains ".sbu"
-| where RegistryValueName !contains "application restart" and RegistryValueName != @"ProxyServer"
+| where RegistryValueData !contains //exceptions for your envionrment
+| where RegistryValueName !contains //exceptions for your envionrment
 | project 
     Timestamp, 
     DeviceName, 
