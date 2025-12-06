@@ -46,14 +46,7 @@ DeviceLogonEvents
 | where Timestamp >= ago(7d)
 | where IsLocalAdmin == "1"
 | where LogonType in~ ("network", "interactive", "remoteinteractive")
-| where AccountName !contains "adm" 
-      and AccountName !startswith "ivv" 
-      and AccountName !startswith "ccd" 
-      and AccountName !contains "cyberark" 
-      and AccountName !startswith "dmz" 
-      and AccountName !startswith "npe" 
-      and AccountName !startswith "cadev" 
-      and AccountName !endswith "gc.all"
+| where AccountName !contains "adm" // Consider excluding certain account dpending on your use case. Such as if you want to idenify accounts that are not matching a naming convention
 | join kind=leftanti BaselineLogons on AccountName, $left.DeviceName == $right.BaselineHosts
 | project Timestamp, AccountName, DeviceName, Protocol, LogonType, IsLocalAdmin
 | summarize 
