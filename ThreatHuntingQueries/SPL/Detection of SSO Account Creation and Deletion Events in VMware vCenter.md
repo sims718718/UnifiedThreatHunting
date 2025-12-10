@@ -43,7 +43,7 @@ Then assigns a simplified `action` label and surfaces key metadata.
 ## 🧪 SPL Query
 
 ```spl
-(index=vmware-vclog OR index=vmware-esxihost) vc_event_desc="Principal Management event in SSO" vc_username=* (message="*Creating local*" OR message="*Deleting principal*")
+index=vmware-vclog vc_event_desc="Principal Management event in SSO" vc_username=* (message="*Creating local*" OR message="*Deleting principal*")
 | rex field=message "Deleting principal\s+'(?<account_deleted>[^']+)'"
 | rex field=message "Creating local person user\s+'(?<account_created>[^']+)'"
 | eval action=case(
