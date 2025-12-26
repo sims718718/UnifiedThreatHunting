@@ -35,14 +35,6 @@ The methodologies covered in this guide will help you:
 - Build effective analytics and detections
 - Communicate findings to stakeholders
 
-### Target Audience
-
-This guide is designed for:
-
-- **Beginners**: Those new to threat hunting who want to understand the foundational methodology
-- **Intermediate Analysts**: Security professionals looking to formalize their hunting processes
-- **Advanced Practitioners**: Experienced hunters seeking to incorporate data science techniques
-
 ---
 
 ## The PACE Framework
