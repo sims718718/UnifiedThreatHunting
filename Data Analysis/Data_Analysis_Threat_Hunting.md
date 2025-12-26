@@ -1,7 +1,8 @@
 # Data Analysis for Threat Hunting: A Data Science Approach
 
 > A comprehensive guide for blending data science methodologies with threat hunting operations
-> **Note** AI was used to clean up a pre-existing guide and assisst in building a non-internal product. Ideas are **original**.
+
+**Note** AI was used to clean up a pre-existing guide and assisst in building a non-internal product. Ideas are **original**.
 
 ---
 
