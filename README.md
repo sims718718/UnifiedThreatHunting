@@ -239,7 +239,7 @@ Automation and AI should focus on:
 - Alerting on baseline deviations or visibility gaps
 - Developing **and** challenging intial hypothesis
 
-Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable**. As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that we stay focused on thinking, not fetching. Addtionally, we should use automation to save time in many steps within the threat hunting process. Use AI to help build your hunt plan or even your hypothesis even. However, never take this at face value. Challenge it, research it, understand it.
+Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable** ( see https://github.com/sims718718/UnifiedThreatHunting/blob/main/DetectionEngineering_Meets_ThreatHunting/Signal-Based_Threat_Hunting.md). As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that we stay focused on thinking, not fetching. Addtionally, we should use automation to save time in many steps within the threat hunting process. Use AI to help build your hunt plan or even your hypothesis even. However, never take this at face value. Challenge it, research it, understand it.
 
 Finally, thanks for reading and shoutout to authors for all of the references used for this process. Have fun hunting!
 
