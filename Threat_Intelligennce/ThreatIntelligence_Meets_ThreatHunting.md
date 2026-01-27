@@ -1,716 +1,749 @@
-# Cyber Threat Intelligence: A Practical Guide for Threat Hunters
+# AI-Enhanced Threat Intelligence for Threat Hunting
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [What is Cyber Threat Intelligence](#what-is-cyber-threat-intelligence)
-- [Good vs Bad Threat Intelligence](#good-vs-bad-threat-intelligence)
-- [CTI's Critical Role in Threat Hunting](#ctis-critical-role-in-threat-hunting)
-- [Building Value Through CTI](#building-value-through-cti)
-- [References](#references)
+- [Why AI Changes the Game](#why-ai-changes-the-game)
+- [The PTCF Prompting Framework](#the-ptcf-prompting-framework)
+- [Essential Prompts](#essential-prompts)
+- [Best Practices](#best-practices)
+- [Common Pitfalls](#common-pitfalls)
 
 ---
 
 ## Introduction
 
-As threat hunters, we operate under the assumption of breach. We proactively search for threats that have bypassed security controls, seeking to identify the unknown before it causes damage. But how do we know what to hunt for? How do we generate meaningful hypotheses that lead to actionable outcomes rather than endless rabbit holes?
+Modern threat hunters face an impossible challenge: too much data, too little time. Traditional threat intelligence gathering requires hours of manual research across vendor blogs, threat reports, MITRE ATT&CK, and countless other sources. By the time you finish researching, the threat landscape has shifted.
 
-The answer lies in effective Cyber Threat Intelligence (CTI).
+**AI changes this equation fundamentally.**
 
-CTI serves as the foundation for the [Unified Threat Hunting Process](https://github.com/sims718718/UnifiedThreatHunting), providing the critical triggering events and contextual knowledge that drive hypothesis development and hunt execution. Without quality intelligence, threat hunting becomes a shot in the dark. With it, hunters can focus their efforts on real adversary behaviors, tactics, and techniques that pose genuine risk to their organizations.
+What took hours now takes minutes. This guide shows you how to leverage AI to accelerate threat intelligence gathering in support of the [Unified Threat Hunting Process](https://github.com/sims718718/UnifiedThreatHunting), using platform-agnostic prompting techniques that work with any major AI system (Claude, ChatGPT, Gemini, or specialized threat intelligence platforms).
 
-This guide provides a practical understanding of CTI, how to distinguish quality intelligence from noise, and most importantly, how to leverage CTI to mature your threat hunting program and deliver measurable value to your organization.
+### What AI Does for Threat Hunters
+
+**Before AI:**
+- 70% time gathering and correlating data
+- 20% analyzing and synthesizing
+- 10% making decisions and hunting
+
+**With AI:**
+- 20% prompting and validating AI outputs
+- 40% analyzing and synthesizing
+- 40% making decisions and hunting
+
+AI doesn't replace threat hunters. It amplifies them by handling the tedious intelligence gathering so you can focus on what matters: hunting threats.
+
+### Key Use Cases
+
+1. **Pre-Hunt Intelligence:** Rapidly assemble comprehensive threat profiles before initiating hunts
+2. **Hypothesis Generation:** Convert threat intelligence into testable hunt hypotheses
+3. **Investigation Support:** Quickly pivot and gather additional context during active hunts
+4. **Reporting:** Synthesize findings into intelligence reports for stakeholders
+
+**Critical Note:** This guide focuses on using AI for intelligence gathering, not automating threat hunting itself. Human expertise remains essential for hypothesis testing, analysis, and decision-making.
 
 ---
 
-## What is Cyber Threat Intelligence
+## Why AI Changes the Game
 
-### Defining CTI
+### The Time Savings
 
-Cyber Threat Intelligence is **knowledge about adversaries and their motivations, intentions, and methods that is collected, analyzed, and disseminated in ways that help security and business staff at all levels protect the critical assets of the enterprise.**
+**Traditional Intelligence Gathering:**
+```
+Identify threat → Search platforms → Read 20-50 page reports → 
+Extract TTPs → Cross-reference sources → Synthesize findings → 
+Format for audience = 2-6 hours
+```
 
-CTI is not simply data or information. It is analyzed, validated, and contextualized knowledge that enables informed decision-making. Understanding this distinction is fundamental to building an effective threat hunting program.
+**AI-Assisted Intelligence Gathering:**
+```
+Craft structured prompt → AI searches and synthesizes → 
+Validate output → Refine as needed = 15-30 minutes
+```
+
+### What AI Excels At
+
+**Rapid Synthesis:** Aggregating information from multiple sources instantly
+
+**Multi-Dimensional Analysis:** Simultaneously analyzing threat actors, malware, TTPs, targeting, and infrastructure
+
+**Contextual Adaptation:** Tailoring intelligence for different audiences (technical, management, executive)
+
+**Temporal Focus:** Filtering intelligence by timeframe (last 30 days, 90 days, etc.)
+
+**Iterative Refinement:** Progressively refining outputs through conversational interaction
+
+### Integration with Threat Hunting
+
+AI-enhanced intelligence supports multiple phases of the [Unified Threat Hunting Process](https://github.com/sims718718/UnifiedThreatHunting):
 
 ```mermaid
 graph LR
-    A[Raw Data] -->|Collection| B[Information]
-    B -->|Analysis| C[Intelligence]
-    C -->|Action| D[Threat Hunt]
-    D -->|Outcomes| E[Detections/Visibility]
-    E -->|Feedback| A
+    A[CTI Sources] -->|AI Synthesis| B[Intelligence Reports]
+    B -->|Triggers| C[Hunt Initiation]
+    B -->|Informs| D[Hypothesis Development]
+    B -->|Supports| E[Initial Assessment]
+    C --> F[Execute Hunt]
+    D --> F
+    E --> F
+    F --> G[New Intelligence]
+    G -->|Feeds Back| A
 ```
 
-### Key Characteristics of Quality CTI
-
-**1. Adversary-Based**
-
-Quality CTI focuses on specific threat actors, not generic threats. Just as military intelligence targets specific enemy forces, cyber threat intelligence profiles cybercriminals, cyber espionage agents, hacktivists, and other adversaries relevant to your organization.
-
-Understanding your adversaries enables you to:
-- Optimize defenses against likely attack vectors
-- Anticipate attacker behaviors and methods
-- Focus hunting efforts on realistic threat scenarios
-
-**2. Risk-Focused**
-
-Effective CTI is tailored to your organization's crown jewels. This includes:
-- Customer data and personally identifiable information (PII)
-- Intellectual property and trade secrets
-- Confidential business information
-- Critical operational systems and infrastructure
-- Credentials and privileged access
-
-Generic threat feeds that treat all organizations equally provide limited value. Quality intelligence considers your industry, geographic location, technology stack, and risk profile.
-
-**3. Actionable and Timely**
-
-Intelligence must support decision-making and action. Stale indicators from attacks six months ago provide limited value. CTI should enable you to:
-- Block active threats at tactical levels
-- Investigate and respond at operational levels
-- Make strategic investments at leadership levels
-
-### The Three Types of Threat Intelligence
-
-CTI operates at three distinct levels, each serving different consumers and use cases:
-
-```mermaid
-graph TD
-    A[Cyber Threat Intelligence] --> B[Tactical Intelligence]
-    A --> C[Operational Intelligence]
-    A --> D[Strategic Intelligence]
-    
-    B --> B1[Threat Indicators<br/>File Hashes, IPs, Domains]
-    B --> B2[Used by: SOC, Blocking Technologies]
-    
-    C --> C1[Threat Data Feeds<br/>Malware Analysis, TTPs, Campaigns]
-    C --> C2[Used by: IR Teams, Threat Hunters]
-    
-    D --> D1[Strategic Reports<br/>Adversary Profiles, Trends, Attribution]
-    D --> D2[Used by: CISOs, Management]
-```
-
-| Intelligence Type | Content | Primary Consumers | Value to Threat Hunting |
-|------------------|---------|-------------------|------------------------|
-| **Tactical** | File hashes, IP addresses, domains, URLs, signatures | SOC analysts, network security teams | Provides atomic indicators for validation during hunts; minimal value alone |
-| **Operational** | Malware analysis, attack breakdowns, TTPs, campaign details | IR teams, forensic analysts, threat hunters | **Critical** for hypothesis development and understanding adversary behaviors |
-| **Strategic** | Adversary profiles, motivations, trends, threat landscape assessments | CISOs, security managers, executives | Drives hunt prioritization and program direction |
-
-### Intelligence Consumers in Your Organization
-
-Different stakeholders require different intelligence formats and levels of detail:
-
-**Tactical Users (SOC Analysts, Network Operations)**
-- Need: Validated indicators to improve blocking effectiveness
-- Format: Machine-readable feeds, signatures, reputation scores
-- Action: Real-time blocking and alert generation
-
-**Operational Users (IR Teams, Threat Hunters, Forensic Analysts)**
-- Need: Detailed context on attacks, adversaries, and TTPs
-- Format: Technical reports, malware analysis, campaign breakdowns
-- Action: Investigation expansion, threat hunting, attribution
-
-**Strategic Users (CISOs, IT Managers, Executives)**
-- Need: Trends, risk assessments, investment recommendations
-- Format: Executive summaries, threat landscape reports
-- Action: Budget allocation, process improvements, strategic planning
+**Primary Value Points:**
+- **Triggering:** Convert raw CTI into hunt triggers
+- **Hypothesis Development:** Generate SMART hunt hypotheses from intelligence
+- **Assessment:** Rapidly research threats during feasibility assessment
+- **Investigation:** Pivot and gather context during hunt execution
 
 ---
 
-## Good vs Bad Threat Intelligence
+## The PTCF Prompting Framework
 
-Understanding the difference between quality intelligence and noise is critical for threat hunters. Bad intelligence wastes time, generates false positives, and erodes confidence in your hunting program. Good intelligence focuses your efforts and delivers measurable outcomes.
+Effective AI interaction requires structure. The PTCF framework ensures consistent, high-quality outputs every time.
 
-### The Intelligence vs Information Distinction
+### Framework Components
 
-At collection time, most threat indicators are:
-- **Unvalidated and not prioritized**
-- **Isolated and without context**
-- **Generic** (not tailored to your organization)
+| Component | Purpose | Example |
+|-----------|---------|---------|
+| **Persona** | Assigns a role to focus AI's knowledge and tone | "You are a senior cyber threat intelligence analyst" |
+| **Task** | Defines the primary goal clearly | "Generate a threat intelligence report on APT29" |
+| **Context** | Provides background, constraints, audience | "For threat hunters, covering last 90 days, focus on cloud attacks" |
+| **Format** | Specifies desired structure and presentation | "Markdown document with Executive Summary, TTPs, IOCs, and Detections sections" |
 
-This creates serious operational problems:
-- SOC analysts overwhelmed by false positive alerts (studies show only 19% of alerts are reliable, and only 4% can be meaningfully investigated)
-- IR teams cannot relate individual alerts to specific campaigns without time-consuming research
-- Threat hunters chase irrelevant indicators instead of focusing on real adversary behaviors
+### Why PTCF Works
 
-**Intelligence** is information that has been:
-- **Validated and prioritized**
-- **Connected to specific actors and attacks**
-- **Customized for your enterprise**
-- **Tailored for specific security consumers**
+- **Clarity:** Each component eliminates ambiguity
+- **Consistency:** Produces predictable results
+- **Completeness:** Ensures no critical elements are missed
+- **Flexibility:** Can be simple or highly detailed based on needs
 
-### Comparison: Good vs Bad Threat Intelligence
+### Progression Model
 
-| Aspect | Bad Intelligence | Good Intelligence |
-|--------|-----------------|-------------------|
-| **Validation** | Unverified indicators from unknown sources | Validated through multiple sources, confirmed malicious activity |
-| **Context** | Standalone indicators with no background | Tagged with adversary, campaign, TTP, and industry relevance |
-| **Timeliness** | Stale data (months or years old) | Current and actionable (hours to days old) |
-| **Relevance** | Generic feeds covering all threats | Prioritized for your industry, tech stack, and risk profile |
-| **Specificity** | Atomic indicators only (IPs, hashes) | Behavioral patterns and TTPs alongside indicators |
-| **Source Quality** | Unknown provenance, no confidence scoring | Reputable sources with confidence levels |
-| **Actionability** | Cannot determine appropriate response | Clear actions and defensive recommendations |
-| **False Positives** | High rate of benign matches | Minimized through validation and context |
-| **Format** | Inconsistent, difficult to parse | Standardized (STIX, TAXII, OpenIOC) |
-| **Analysis** | Raw data dump | Analyzed with assessments and recommendations |
+**Level 1: Simple Question**
+```
+Tell me about APT29
+```
+*Fast but vague, requires follow-up*
 
-### Characteristics of Bad Intelligence
+**Level 2: Structured (Recommended)**
+```
+Persona: You are a threat intelligence analyst.
+Task: Generate a threat brief on APT29.
+Context: For technical hunters, last 90 days, focus on cloud targeting.
+Format: Markdown with Executive Summary, TTPs (MITRE mapped), and Detection sections.
+```
+*Good balance of speed and quality*
 
-**1. Unvalidated Indicators**
+**Level 3: Advanced Workflow**
+```
+Persona: You are a senior CTI analyst.
+Task: Generate comprehensive APT29 intelligence report.
+Context: For incident responders, 180 days, cloud infrastructure focus.
+Format: Detailed markdown with specific sections.
+Workflow:
+1. Identify APT29 profile and recent campaigns
+2. Extract top 5 TTPs with MITRE mappings
+3. Analyze cloud-specific techniques
+4. Provide detection opportunities per TTP
+5. Synthesize into formatted report
+```
+*Maximum control for complex, repeatable tasks*
 
-Indicators that haven't been verified generate noise and false positives. Common issues:
-- Public feeds containing legitimate infrastructure (CDNs, cloud providers, popular domains)
-- Outdated indicators from old campaigns where infrastructure has been repurposed
-- Low-confidence indicators with no context about severity
-- Duplicate or redundant indicators
+### Key Prompting Principles
 
-**Impact on Threat Hunting:** Hunters waste time investigating benign activity, eroding confidence in the hunt program and CTI feeds.
+**1. Be Specific**
+- Vague: "Tell me about ransomware"
+- Specific: "Analyze ransomware TTPs used by Russian cybercriminal groups targeting financial services in Q4 2024"
 
-**2. Lack of Context**
+**2. Define Your Audience**
+- **Technical:** Detailed TTPs, detection logic, code analysis
+- **Management:** Risk assessment, business impact, resource needs
+- **Executive:** Brief summaries, trends, strategic recommendations
 
-Indicators without context cannot answer critical questions:
-- What adversary uses this?
-- What is their objective?
-- What stage of the attack chain is this?
-- Is this relevant to my organization?
-- What should I look for next?
+**3. Constrain Timeframes**
+- "Last 30 days" for current threats
+- "Last 90 days" for recent trends
+- "Last 12 months" for strategic analysis
 
-**Impact on Threat Hunting:** Without context, hunters cannot develop meaningful hypotheses or expand investigations effectively.
+**4. Specify Output Format**
+- Markdown documents
+- Tables for structured data
+- Bulleted lists for quick reference
+- MITRE ATT&CK mappings
 
-**3. Generic and Irrelevant**
-
-Intelligence that treats all organizations the same fails to account for:
-- Industry-specific threats (financial vs healthcare vs manufacturing)
-- Geographic targeting (threats focused on specific regions)
-- Technology-specific exploits (attacks targeting systems you don't use)
-
-**Impact on Threat Hunting:** Resources spent hunting threats that don't apply to your environment.
-
-**4. Atomic Indicators Without Behavioral Context**
-
-Focusing solely on atomic indicators (file hashes, IP addresses) is problematic because:
-- Adversaries easily change these low-level indicators
-- No understanding of adversary TTPs and behaviors
-- Cannot anticipate variations or future attacks
-- Limited ability to detect novel attacks
-
-### Characteristics of Good Intelligence
-
-**1. Validated and Prioritized**
-
-Quality intelligence includes:
-- Confirmation from multiple sources or analysis methods
-- Risk scoring based on severity and relevance
-- Confidence levels for each indicator
-- Filtering of outdated or benign indicators
-
-**Impact on Threat Hunting:** Hunters can focus on high-confidence, high-priority leads that warrant investigation.
-
-**2. Rich Context and Attribution**
-
-Quality intelligence connects indicators to:
-- Specific adversary groups and campaigns
-- TTPs (tactics, techniques, and procedures)
-- Attack stages and objectives
-- Related indicators (cluster of activity)
-- Industry and geographic targeting
-
-**Impact on Threat Hunting:** Enables hypothesis development, investigation expansion (pivoting), and understanding of adversary intent.
-
-**3. Tailored to Your Environment**
-
-Effective intelligence considers:
-- Your industry vertical and threat landscape
-- Your technology stack and critical assets
-- Your geographic locations and subsidiaries
-- Your regulatory environment and compliance requirements
-
-**Impact on Threat Hunting:** Ensures hunting efforts focus on realistic threats to your organization.
-
-**4. TTPs and Behavioral Indicators**
-
-Moving up the "Pyramid of Pain," quality intelligence includes:
-- **Atomic Indicators** (hashes, IPs): Easy for adversaries to change
-- **Computed Indicators** (regex patterns, algorithms): Moderate difficulty to change
-- **Behavioral Indicators** (TTPs, techniques): Difficult for adversaries to change without complete retooling
-
-**Impact on Threat Hunting:** Focus on behaviors and TTPs enables detection of attacks even when atomic indicators change.
-
-### Red Flags: Indicators of Poor CTI Quality
-
-Watch for these warning signs in your threat intelligence sources:
-
-- No validation process or quality assurance
-- No attribution or adversary context
-- No confidence scoring or prioritization
-- Feeds containing obvious false positives (legitimate services)
-- No documentation on collection methods or sources
-- No industry or geographic filtering options
-- Focus exclusively on atomic indicators
-- Infrequent updates or stale data
-- No integration with standard formats (STIX, TAXII, OpenIOC)
-- Vendor lock-in with no API or export options
+**5. Iterate and Refine**
+Don't expect perfection on first try. Use follow-up prompts:
+- "Expand the lateral movement section with more detail"
+- "Provide specific hunt queries for each TTP"
+- "Reformat as a table"
 
 ---
 
-## CTI's Critical Role in Threat Hunting
+## Essential Prompts
 
-Cyber Threat Intelligence is not just a nice-to-have for threat hunting – it is foundational to the entire process. CTI serves multiple critical functions throughout the [Unified Threat Hunting Process](https://github.com/sims718718/UnifiedThreatHunting).
+This section provides three copy-paste ready prompts for the most common threat intelligence tasks.
 
-### CTI as the Primary Hunt Trigger
+### Prompt 1: Operational Threat Intelligence Report
 
-In the Unified Threat Hunting Process, every hunt begins with a triggering event. CTI is the most common and valuable trigger source for proactive hunting.
+**Purpose:** Generate comprehensive threat intelligence for hypothesis development and hunt planning. This is the most versatile prompt for threat hunters.
 
-```mermaid
-graph LR
-    A[CTI Sources] -->|Triggers| B[Hypothesis Development]
-    B --> C[Initial Assessment<br/>More CTI Research]
-    C --> D[Feasibility Assessment]
-    D --> E[Scope & Objectives]
-    E --> F[Hunt Plan]
-    F --> G[Execute Hunt]
-    G --> H[Document Outcomes]
-    H -->|New Intel| A
+**Use Case:** You've identified a relevant threat actor or campaign and need detailed intelligence to develop hunt hypotheses and understand adversary behavior.
+
+**Copy-Paste Ready Prompt:**
+
+```text
+## Persona
+You are an operational threat intelligence analyst with expertise in adversary behavior analysis.
+
+## Task
+Generate a comprehensive operational intelligence report on [THREAT_ACTOR or CAMPAIGN_NAME].
+
+## Context
+This report will inform threat hunting hypothesis development and investigation planning. The audience includes threat hunters and incident responders. Cover activity from the last [TIMEFRAME, e.g., "90 days"]. 
+
+We operate in the [INDUSTRY] sector in [GEOGRAPHIC_REGION] with a [TECHNOLOGY_STACK, e.g., "Windows-heavy environment, Microsoft 365, AWS cloud"]. Highlight intelligence most relevant to our profile.
+
+## Format
+Structure the output as a markdown document with the following sections:
+
+### Executive Summary
+- 3-4 sentences covering threat, relevance, and key findings
+- Overall threat assessment
+
+### Threat Actor/Campaign Profile
+- Full name and known aliases
+- Attribution and confidence level
+- Motivation and objectives
+- Origin/affiliation
+- First observed and activity timeline
+
+### Targeting and Victimology
+- Primary target industries (emphasize [INDUSTRY])
+- Geographic focus (emphasize [GEOGRAPHIC_REGION])
+- Typical victim profiles
+- Attack objectives
+
+### Detailed TTP Analysis
+For each major stage of the attack chain:
+
+#### [Stage Name, e.g., Initial Access]
+- Primary techniques used
+- MITRE ATT&CK technique IDs
+- Specific implementation details
+- Detection opportunities
+- Required data sources for detection
+
+[Repeat for: Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, C2, Exfiltration]
+
+### Malware and Tools
+Present as table:
+| Malware/Tool | Type | Purpose | Key Capabilities | Detection Challenges |
+
+### Infrastructure Analysis
+- Hosting patterns
+- Domain registration characteristics
+- C2 communication patterns
+- Infrastructure rotation timelines
+
+### Threat Hunting Implications
+- Top 3-5 hunt hypotheses (SMART format)
+- Required data sources
+- Expected detection difficulty
+- Baseline considerations
+
+### Detection Recommendations
+- High-priority detection opportunities by attack stage
+- Specific detection logic or queries (if applicable)
+- Network and host monitoring priorities
+
+### Intelligence Gaps
+- What is not well understood
+- Areas requiring additional research
+
+### References
+- Primary intelligence sources
 ```
 
-**CTI Trigger Types:**
-
-1. **New Adversary Campaign Reports**
-   - Published reports on active threat groups
-   - Industry-targeted campaigns
-   - New malware families or tools
-
-2. **TTP Intelligence**
-   - Novel attack techniques
-   - Updates to MITRE ATT&CK framework
-   - Observed adversary behaviors
-
-3. **Vulnerability Intelligence**
-   - N-day exploits being actively used
-   - Zero-day disclosures affecting your stack
-   - Exploitation trends
-
-4. **Strategic Intelligence**
-   - Threat landscape shifts
-   - Emerging adversary groups
-   - Industry-specific threat briefings
-
-### CTI Throughout the Hunt Lifecycle
-
-Let's examine how CTI supports each phase of the Unified Threat Hunting Process:
-
-#### Phase 1: Triggering Event
-
-**CTI Role:** Initiates the hunt with actionable intelligence about adversaries, campaigns, or techniques.
-
-**Examples:**
-- Vendor blog post describes new ransomware group targeting your industry
-- MITRE ATT&CK update highlights technique you haven't hunted for
-- Threat intel feed indicates active exploitation of technology in your environment
-- Industry ISAC reports emerging threat patterns
-
-#### Phase 2: Hypothesis Development
-
-**CTI Role:** Provides the knowledge foundation for building SMART hypotheses.
-
-Without CTI, hypotheses are guesses. With CTI, they are informed predictions based on adversary behavior.
-
-**CTI Inputs for Hypothesis Building:**
-- Known adversary TTPs and attack chains
-- Industry-specific targeting patterns
-- Technology-specific exploitation methods
-- Historical attack patterns in your environment
-- Behavioral indicators from similar organizations
-
-**Example Hypothesis with CTI:**
-
-Poor hypothesis (no CTI):
-> "I think there might be some bad stuff happening with PowerShell."
-
-Strong hypothesis (CTI-informed):
-> "Based on reports of APT29 targeting organizations in our industry vertical using PowerShell Empire for lateral movement (MITRE T1059.001), I hypothesize that encoded PowerShell commands executed by unusual parent processes (not explorer.exe, services.exe) on endpoints with access to sensitive data may indicate initial access or lateral movement attempts. I can validate this hypothesis using Sysmon Event ID 1 data with CommandLine parameters."
-
-This hypothesis is:
-- **Specific**: Encoded PowerShell with unusual parent processes
-- **Measurable**: Sysmon Event ID 1 with specific conditions
-- **Achievable**: Data sources exist
-- **Relevant**: Tied to known adversary TTPs targeting your industry
-- **Time-bound**: Current active threat
-
-#### Phase 3: Initial Assessment
-
-**CTI Role:** External research to support and refine the hypothesis.
-
-**CTI Research Activities:**
-- Reviewing vendor blogs and threat reports
-- Consulting MITRE ATT&CK for technique details
-- Checking ISACs and peer organization sharing
-- Analyzing related campaigns and adversary profiles
-- Validating assumptions against known TTPs
-
-**Tools and Sources:**
-- MITRE ATT&CK Navigator
-- Vendor threat intelligence portals
-- OSINT platforms (Twitter, security blogs)
-- Threat intelligence platforms (TIPs)
-- ISACs and sharing communities
-
-#### Phase 4: Feasibility Assessment
-
-**CTI Role:** Helps determine if you can actually hunt for the adversary behaviors.
-
-**Key Questions Informed by CTI:**
-- What telemetry is needed to hunt these TTPs?
-- Do we have visibility into the attack stages?
-- Can we distinguish adversary behavior from benign activity?
-- What is the expected prevalence (needle vs haystack)?
-
-**CTI Value:** Understanding the adversary's methods helps identify required data sources and assess hunt feasibility.
-
-#### Phase 5-7: Scope, Plan, and Execute
-
-**CTI Role:** Guides hunt execution with specific TTPs, indicators, and behavioral patterns.
-
-**CTI Usage During Execution:**
-- Reference TTPs to identify detection opportunities
-- Use behavioral indicators to develop analytics
-- Leverage known adversary patterns for baselining
-- Validate findings against CTI to confirm true positives
-
-#### Phase 8-9: Document and Iterate
-
-**CTI Role:** Outcomes feed back into organizational intelligence.
-
-**CTI Contributions:**
-- New TTPs observed in your environment
-- Local adversary behaviors and targeting
-- Indicator enrichment for future hunts
-- Validation or refutation of external intelligence
-- Hunt findings shared with peer organizations
-
-### Integration Points: CTI and Threat Hunting
-
-| Hunt Phase | CTI Input | CTI Output |
-|-----------|-----------|------------|
-| Trigger | External intel reports, campaigns, TTPs | Hunt initiation |
-| Hypothesis | Adversary behaviors, known techniques | Informed testable statements |
-| Assessment | Research sources, TTP documentation | Validated hunt plan |
-| Execution | Behavioral indicators, detection patterns | Discovered activity |
-| Outcomes | Validation of intelligence | New organizational intelligence |
-
-### The Continuous Feedback Loop
-
-Effective threat hunting creates new CTI for your organization:
-
-```mermaid
-graph TD
-    A[External CTI] -->|Triggers| B[Threat Hunt]
-    B -->|Discovers| C[New TTPs/Behaviors]
-    C -->|Becomes| D[Internal CTI]
-    D -->|Informs| E[Detection Engineering]
-    D -->|Enables| F[Future Hunts]
-    D -->|Shares| G[Peer Organizations]
-    G -->|Provides| A
-    E -->|Validates| B
-    F -->|Executes| B
-```
-
-This feedback loop is critical for continuous improvement and organizational learning.
+**Variables to Customize:**
+- `[THREAT_ACTOR or CAMPAIGN_NAME]`: APT29, FIN7, Akira Ransomware, etc.
+- `[TIMEFRAME]`: 30/60/90/180 days
+- `[INDUSTRY]`: Financial services, healthcare, manufacturing, etc.
+- `[GEOGRAPHIC_REGION]`: North America, Europe, APAC, specific countries
+- `[TECHNOLOGY_STACK]`: Your environment specifics
 
 ---
 
-## Building Value Through CTI 
+### Prompt 2: Hunt Plan Generation (Epic + Stories)
 
-A mature CTI program doesn't just collect indicators – it systematically delivers value to threat hunting operations and the broader security organization. This section outlines how to build and mature a CTI capability that directly supports threat hunting objectives.
+**Purpose:** Transform threat intelligence into a structured hunt plan following the [Unified Threat Hunting Process](https://github.com/sims718718/UnifiedThreatHunting) Epic/Story format.
 
-### Essential Components of a CTI Program
+**Use Case:** You have threat intelligence and need to create a complete, documented hunt plan for your team (suitable for Jira or similar tools).
 
-**1. Dedicated Resources**
+**Copy-Paste Ready Prompt:**
 
-According to SANS research, 64% of organizations with successful CTI programs have dedicated teams or personnel focused on threat intelligence. For threat hunting specifically, this means:
+```text
+## Persona
+You are a lead threat hunter with extensive experience designing hypothesis-driven hunt operations.
 
-- Threat intelligence analysts who understand adversary TTPs
-- Integration between CTI and threat hunting teams
-- Regular intelligence briefings to inform hunt priorities
-- Shared tools and platforms (TIPs, SIEM, hunting platforms)
+## Task
+Generate a complete threat hunt plan (Epic and Stories) based on this threat intelligence: 
 
-**2. Structured Intelligence Requirements**
+[PASTE_INTELLIGENCE_OR_DESCRIBE_TTP]
 
-Define what intelligence your hunt team actually needs:
+## Context
+Create a hunt plan following the Unified Threat Hunting Process for use in project management tools. The plan needs an Epic (overarching hypothesis) and multiple Stories (discrete investigation approaches).
 
-**Critical Requirements for Threat Hunters:**
-- Industry-specific adversary profiles and TTPs
-- Current active campaigns targeting similar organizations
-- Behavioral indicators and detection patterns
-- Infrastructure and tooling used by relevant adversaries
-- Attack chain documentation (reconnaissance through exfiltration)
-- Exploited vulnerabilities in your technology stack
+Our environment:
+- Organization: [TYPE, e.g., "Enterprise financial services"]
+- Technology: [STACK, e.g., "Windows endpoints, Microsoft 365, AWS"]
+- Available data: [SOURCES, e.g., "Sysmon, EDR telemetry, network flow logs, auth logs"]
+- Team skills: [CAPABILITIES, e.g., "Strong log analysis, moderate scripting"]
 
-**3. Multiple Intelligence Sources**
+Hunt requirements (SMART criteria):
+- **Specific:** Narrow, focused scope
+- **Measurable:** Quantifiable success criteria
+- **Achievable:** Realistic given our telemetry and skills
+- **Relevant:** Aligned with organizational threat model
+- **Time-bound:** Completable within [DURATION, e.g., "2-3 weeks"]
 
-Don't rely on a single feed or vendor. Mature programs combine:
+## Format
 
-**External Sources:**
-- Commercial threat intelligence vendors
-- Open-source intelligence (OSINT)
-- ISACs and information sharing communities
-- Vendor security research blogs
-- Government advisories (CISA, FBI, etc.)
+### Epic: [Hypothesis Title]
 
-**Internal Sources:**
-- Historical incident data
-- Previous hunt findings
-- Detection and response outcomes
-- Vulnerability assessments
-- Red team exercises
+#### Hypothesis Statement
+[One clear, testable statement about adversary presence or activity]
 
-### From CTI to Hunt Hypotheses: A Practical Framework
+#### Trigger
+- **Type:** [CTI Report / Vulnerability / Past Incident / etc.]
+- **Details:** [What initiated this hunt]
 
-Quality CTI directly enables hypothesis generation through three key intelligence types:
+#### Justification
+[Why this matters to our organization]
 
-#### 1. TTP Intelligence (Tactics, Techniques, and Procedures)
+**Supporting Intelligence:**
+- Relevant threat actors or malware
+- MITRE ATT&CK techniques involved
+- Recent campaigns or targeting
+- Industry/regional relevance
 
-TTPs represent how adversaries accomplish their objectives. They are the most valuable intelligence for threat hunters because they are difficult for adversaries to change.
+**Hunt Objectives:**
+1. [What we aim to accomplish]
+2. [What we aim to accomplish]
+3. [What we aim to accomplish]
 
-**TTP Structure (aligned with MITRE ATT&CK):**
+**Scope:**
+- **In Scope:** [Systems, timeframes, users]
+- **Out of Scope:** [What we're NOT hunting]
 
-```
-Tactic: Initial Access
-├── Technique: Phishing (T1566)
-│   ├── Sub-technique: Spearphishing Attachment (T1566.001)
-│   ├── Procedure: APT29 sends macro-enabled documents
-│   └── Detection Opportunity: Office spawning unusual child processes
-```
+**Required Data Sources:**
+- [Source 1 with specific log types]
+- [Source 2 with specific log types]
 
-**Converting TTPs to Hunt Hypotheses:**
-
-| TTP Component | Hunt Hypothesis Element |
-|---------------|------------------------|
-| **Tactic** | Attack stage to focus on (e.g., Lateral Movement) |
-| **Technique** | Specific behavior to hunt (e.g., Remote Services) |
-| **Procedure** | Adversary-specific implementation details |
-| **Detection** | How to identify the behavior in your data |
-
-**Example: TTP to Hypothesis Translation**
-
-**CTI Input:** APT28 uses Mimikatz for credential dumping (MITRE T1003.001 - LSASS Memory)
-
-**Hunt Hypothesis:**
-> "Processes accessing LSASS.exe memory, particularly those not commonly associated with this activity (excluding legitimate security tools), may indicate credential theft attempts. I can detect this using Sysmon Event ID 10 (ProcessAccess) where TargetImage contains 'lsass.exe' and SourceImage is not a known benign process."
-
-**Hunt Plan:**
-1. Baseline normal LSASS access in environment
-2. Identify anomalous processes accessing LSASS
-3. Investigate process lineage and command-line parameters
-4. Correlate with authentication anomalies
-5. Document findings and create detection rule
-
-#### 2. Behavioral Indicators
-
-Behavioral indicators describe patterns of activity rather than atomic artifacts. They are more durable and effective for hunting than static indicators.
-
-**Types of Behavioral Indicators:**
-
-| Indicator Type | Example | Hunt Value |
-|---------------|---------|------------|
-| **Atomic** | File hash: `a3f8d...` | Low (easily changed) |
-| **Computed** | Regex: `powershell.*-enc.*-nop` | Medium |
-| **Behavioral** | Encoded PowerShell from Office applications | **High** (requires adversary retooling) |
-
-**Behavioral Pattern Examples:**
-
-**Pattern 1: Living Off the Land**
-- Behavior: Adversaries use built-in Windows utilities
-- Indicators: wmic, certutil, bitsadmin used for non-standard purposes
-- Hunt Focus: Unusual command-line parameters, unexpected parent processes
-
-**Pattern 2: Suspicious Scheduling**
-- Behavior: Persistence via scheduled tasks
-- Indicators: schtasks.exe creating tasks with unusual characteristics
-- Hunt Focus: Tasks running at odd hours, tasks with network callbacks
-
-**Pattern 3: Lateral Movement**
-- Behavior: Remote execution using legitimate Windows services
-- Indicators: Unusual service creation on multiple hosts, psexec-like activity
-- Hunt Focus: Service creation events, network logons, process execution
-
-**Building Behavioral Hypotheses:**
-
-Quality behavioral intelligence enables hypotheses that survive indicator changes:
-
-**Weak Hypothesis (Atomic):**
-> "Search for file hash X on all endpoints"
-
-**Strong Hypothesis (Behavioral):**
-> "Adversaries establishing persistence often create scheduled tasks that execute from user writeable directories. Hunt for schtasks.exe creating tasks where the action path is not in System32 or Program Files, particularly when created by users without administrative job functions."
-
-#### 3. Atomic Indicators (Used Judiciously)
-
-While less valuable for proactive hunting, atomic indicators have specific uses:
-
-**Appropriate Uses of Atomic Indicators in Hunting:**
-
-1. **Validation**: Confirming suspected activity
-   - Found suspicious PowerShell? Check if command-line matches known adversary patterns
-   - Identified unusual network connection? Validate destination IP against CTI
-
-2. **Pivot Points**: Expanding investigations
-   - Confirmed malicious file hash? Search for related hashes from same campaign
-   - Known C2 infrastructure? Identify other communications to that infrastructure
-
-3. **Historical Analysis**: Hunting backwards
-   - New intelligence released? Search historical data for indicators
-   - Adversary infrastructure identified? Check if your organization was targeted
-
-**Critical Note on Atomic Indicators:**
-
-Never build entire hunts around atomic indicators alone. They should support behavioral and TTP-based hunting, not replace it. If your hunt hypothesis is "search for these 50 file hashes," you're not truly threat hunting – you're validating indicators.
-
-### CTI Program Maturity Model for Threat Hunting
-
-Mature your CTI program through progressive capability development:
-
-**Level 1: Ad Hoc**
-- No formal CTI program
-- Hunters rely on public blogs and OSINT
-- Limited intelligence sharing
-- Reactive to published threats
-
-**Level 2: Defined Process**
-- Documented intelligence requirements
-- Subscription to commercial feeds
-- Basic threat intelligence platform (TIP)
-- Regular threat briefings
-
-**Level 3: Integrated**
-- Dedicated CTI analyst(s)
-- Integration between CTI and hunt teams
-- Automated indicator enrichment
-- Participation in sharing communities
-- Hunt triggers driven by intelligence
-
-**Level 4: Optimized**
-- Proactive intelligence collection
-- Custom adversary tracking
-- Intelligence-driven hunt calendar
-- Continuous feedback loop
-- Contributing intelligence to community
-- Predictive threat modeling
-
-### Measuring CTI Value in Threat Hunting
-
-Quantify the impact of CTI on your hunting program:
-
-**Key Metrics:**
-
-| Metric | What It Measures | Target |
-|--------|-----------------|--------|
-| **Hunt Success Rate** | % hunts resulting in findings | 15-25% (improves with quality CTI) |
-| **Time to Hypothesis** | Speed of developing hunt hypotheses | Decreases with better CTI |
-| **Detection Creation** | Analytics generated from hunts | Should increase with TTP intel |
-| **False Positive Rate** | Invalid findings per hunt | Should decrease with quality CTI |
-| **CTI-Triggered Hunts** | % hunts initiated by intelligence | Should be 60%+ |
-| **TTP Coverage** | MITRE ATT&CK techniques hunted | Expand coverage with CTI |
-
-**Value Outcomes:**
-
-1. **Reduced Dwell Time**: Earlier detection through proactive hunting
-2. **Better Prioritization**: Focus on real threats, not theoretical ones
-3. **Detection Coverage**: Fill gaps identified by CTI
-4. **Incident Prevention**: Stop attacks before damage occurs
-5. **Intelligence Sharing**: Contribute findings back to community
-
-### Practical Implementation: Starting Your CTI-Driven Hunt Program
-
-**Week 1-2: Foundation**
-- Identify your critical assets and crown jewels
-- Determine relevant adversaries (industry, geography, threat model)
-- Subscribe to basic intelligence sources (OSINT + 1-2 commercial feeds)
-- Set up threat intelligence platform or SIEM integration
-
-**Week 3-4: Process Definition**
-- Define intelligence requirements for hunting
-- Establish hunt trigger criteria
-- Create templates for hypothesis development
-- Set up regular intelligence review cadence
-
-**Month 2: First CTI-Driven Hunts**
-- Select 2-3 high-priority TTPs from threat intelligence
-- Develop hypotheses using the framework in this guide
-- Execute hunts following the Unified Threat Hunting Process
-- Document outcomes and lessons learned
-
-**Month 3+: Maturity and Optimization**
-- Implement continuous feedback loop
-- Automate indicator enrichment
-- Establish hunt calendar driven by intelligence
-- Join information sharing communities
-- Contribute findings back to CTI feeds
-
-### Common Pitfalls and How to Avoid Them
-
-**Pitfall 1: Information Overload**
-- **Problem**: Too many feeds, unable to process all intelligence
-- **Solution**: Focus on quality over quantity; prioritize operational intelligence
-
-**Pitfall 2: Intelligence-Action Gap**
-- **Problem**: Consuming intelligence but not translating to hunts
-- **Solution**: Establish clear trigger criteria and regular hunt planning sessions
-
-**Pitfall 3: Atomic Indicator Obsession**
-- **Problem**: Hunting only for hashes and IPs from threat feeds
-- **Solution**: Shift focus to TTPs and behavioral patterns
-
-**Pitfall 4: No Feedback Loop**
-- **Problem**: Hunt findings don't inform future intelligence requirements
-- **Solution**: Document outcomes and share findings with CTI team and community
-
-**Pitfall 5: Generic Intelligence**
-- **Problem**: Hunting threats that don't apply to your environment
-- **Solution**: Customize intelligence requirements to your threat model
+**Feasibility:**
+- Data availability: [Available/Partial/Not Available]
+- Team capability: [Existing/Training Needed]
+- Estimated effort: [Hours or days]
 
 ---
 
-## Conclusion
+### Story 1: [Test Approach Title]
 
-Cyber Threat Intelligence and threat hunting are inseparable disciplines. Quality CTI transforms hunting from random exploration into focused, hypothesis-driven investigation. It provides the critical knowledge needed to develop meaningful hypotheses, prioritize efforts, and deliver measurable value to your organization.
+**Test Objective:**
+[What specific aspect this story tests]
 
-**Key Takeaways:**
+**Approach:**
+[High-level investigative method]
 
-1. **CTI is Knowledge, Not Just Data**: Intelligence is analyzed, validated, and contextualized information that enables action.
+**Rationale:**
+[Why this approach helps prove/disprove hypothesis]
 
-2. **Focus on TTPs, Not Just Indicators**: Behavioral intelligence is more valuable than atomic indicators for proactive hunting.
+**Investigation Steps:**
 
-3. **CTI Drives the Hunt Trigger**: The majority of effective hunts should originate from threat intelligence.
+1. **Data Gathering**
+   - Sources: [Specific sources]
+   - Timeframe: [Period]
+   - Query criteria: [Filters]
 
-4. **Quality Over Quantity**: Better to have a few high-quality intelligence sources than dozens of noisy feeds.
+2. **Baseline Development**
+   - Baseline approach: [Statistical/Historical/Rule-based]
+   - Baseline period: [Timeframe]
+   - Key metrics: [What defines "normal"]
 
-5. **Create a Feedback Loop**: Hunt outcomes should inform future intelligence requirements and be shared with the community.
+3. **Analysis**
+   - Method: [Frequency analysis/Anomaly detection/Pattern matching/etc.]
+   - Tools: [Splunk/Python/etc.]
+   - Success criteria: [What indicates positive findings]
 
-6. **Mature Progressively**: Build CTI capabilities incrementally, focusing on integration with hunting operations.
+4. **Hunt Queries**
+```
+[Pseudo-code or actual query example]
+```
 
-As you implement CTI in your threat hunting program, remember that the goal is not perfection but continuous improvement. Start with basic intelligence sources, develop clear requirements, and progressively mature your capabilities. Most importantly, ensure that your intelligence program directly supports and enables your hunters to identify threats that matter to your organization.
+5. **Validation**
+   - How to confirm true positives
+   - Expected false positive scenarios
+   - Escalation criteria
 
-The most sophisticated adversaries won't wait for you to detect them. Proactive threat hunting, powered by quality cyber threat intelligence, is your best defense against advanced persistent threats and unknown compromises. Make CTI the foundation of your hunting program, and watch your detection capabilities transform from reactive to proactive, from generic to targeted, and from tactical to strategic.
+**MITRE Coverage:**
+- Primary: [T-ID and name]
+- Related: [List]
 
-Happy hunting.
+**Estimated Effort:** [Hours]
+
+---
+
+### Story 2: [Alternative Approach Title]
+
+**Test Objective:**
+[Different aspect or methodology]
+
+**Approach:**
+[Alternative investigative method]
+
+**Note:** This story uses a different analytical approach than Story 1 to ensure comprehensive hypothesis testing.
+
+[Same detailed structure as Story 1]
+
+---
+
+### Success Criteria
+The hunt succeeds if we:
+1. [Criterion, e.g., "Definitively prove or disprove hypothesis"]
+2. [Criterion, e.g., "Create actionable detections"]
+3. [Criterion, e.g., "Identify visibility gaps"]
+
+### Expected Outcomes
+After hunt execution, outcomes documented as Tasks may include:
+- New hunt ideas discovered
+- Detection analytics created
+- Security incidents identified
+- Visibility gaps found
+- Written hunt report completed
+
+Note: Tasks are outcomes created AFTER hunt execution, not part of initial planning.
+```
+
+**Variables to Customize:**
+- `[PASTE_INTELLIGENCE_OR_DESCRIBE_TTP]`: Your threat intelligence input
+- `[TYPE]`: Organization type
+- `[STACK]`: Technology environment
+- `[SOURCES]`: Available data sources
+- `[CAPABILITIES]`: Team skills
+- `[DURATION]`: Hunt timeframe
+
+---
+
+### Prompt 3: Hypothesis Generation from CTI
+
+**Purpose:** Automatically generate multiple hunt hypotheses from threat intelligence, enabling rapid conversion of CTI into hunt opportunities.
+
+**Use Case:** New threat intelligence has arrived (blog post, report, MITRE update) and you need to quickly identify what's worth hunting in your environment.
+
+**Copy-Paste Ready Prompt:**
+
+```text
+## Persona
+You are a senior threat hunter specializing in translating threat intelligence into actionable hunt hypotheses.
+
+## Task
+Analyze the following threat intelligence and generate multiple SMART hunt hypotheses relevant to our environment:
+
+[PASTE_THREAT_INTELLIGENCE_HERE]
+
+## Context
+Convert this intelligence into specific, testable hunt hypotheses following the Unified Threat Hunting Process. Each hypothesis must be actionable with our available telemetry.
+
+**Our Environment:**
+- Organization: [TYPE and INDUSTRY]
+- Geography: [REGIONS]
+- Technology: [TECH_STACK]
+- Available telemetry: [DATA_SOURCES]
+- Crown jewels: [CRITICAL_ASSETS]
+
+**Hypothesis Requirements (SMART):**
+- **Specific:** Narrow, focused scope
+- **Measurable:** Quantifiable detection criteria
+- **Achievable:** Feasible with our telemetry
+- **Relevant:** Aligned with our threat model
+- **Time-bound:** Testable within 2-3 weeks
+
+## Workflow
+1. Extract all MITRE ATT&CK techniques from the intelligence
+2. Assess which TTPs apply to our environment
+3. Map TTPs to our available data sources
+4. Generate 5-7 distinct hunt hypotheses targeting different attack stages
+5. Prioritize hypotheses by risk and detectability
+
+## Format
+
+### Intelligence Summary
+**Source:** [Title of intelligence]
+
+**Key Findings:**
+- [Finding 1]
+- [Finding 2]
+- [Finding 3]
+
+**Relevance:** [High/Medium/Low] - [Why]
+
+---
+
+### TTP Extraction
+
+| MITRE Technique | Technique Name | Applies to Us? | Data Available? | Detection Difficulty |
+|-----------------|----------------|----------------|-----------------|---------------------|
+| [T-ID] | [Name] | [Yes/No + reason] | [Yes/Partial/No] | [Easy/Medium/Hard] |
+
+---
+
+### Generated Hunt Hypotheses
+
+#### Hypothesis 1: [Title]
+**Priority:** 1 (highest priority)
+
+**SMART Statement:**
+[Clear, testable hypothesis meeting all SMART criteria]
+
+**Target Technique(s):**
+- Primary: [T-ID - Name]
+- Related: [T-ID - Name]
+
+**Justification:**
+[Why this matters based on the threat intelligence]
+
+**Detection Approach:**
+[High-level method to test this hypothesis]
+
+**Data Sources Required:**
+- [Source 1]
+- [Source 2]
+
+**Expected Indicators:**
+[What we'd see if hypothesis is true]
+
+**Feasibility:** [High/Medium/Low]
+
+**Effort:** [Hours/Days]
+
+**Risk if Undetected:** [Critical/High/Medium/Low]
+
+---
+
+[Repeat for Hypotheses 2-7, with decreasing priority]
+
+---
+
+### Prioritized Hunt Roadmap
+
+**Phase 1 (Immediate):**
+1. Hypothesis [#]: [Title] - [Why first]
+
+**Phase 2 (Short-term):**
+2. Hypothesis [#]: [Title] - [Why second]
+3. Hypothesis [#]: [Title] - [Why third]
+
+**Backlog (Requires Additional Telemetry):**
+- Hypothesis [#]: [Title] - [Blocker: what's needed]
+
+---
+
+### Visibility Gaps
+Based on this intelligence, we lack visibility in:
+1. [Gap] - Impact: [H/M/L] - Recommendation: [How to address]
+2. [Gap] - Impact: [H/M/L] - Recommendation: [How to address]
+
+---
+
+### Detection Opportunities
+Beyond hunting, create these detections:
+1. [Detection name] - [Type: Signature/Behavioral/Anomaly]
+2. [Detection name] - [Type: Signature/Behavioral/Anomaly]
+```
+
+**Variables to Customize:**
+- `[PASTE_THREAT_INTELLIGENCE_HERE]`: Copy-paste the CTI content
+- `[TYPE and INDUSTRY]`: Your organization context
+- `[REGIONS]`: Geographic locations
+- `[TECH_STACK]`: Your technology environment
+- `[DATA_SOURCES]`: Available telemetry
+- `[CRITICAL_ASSETS]`: Your crown jewels
+
+---
+
+## Best Practices
+
+### Iterative Refinement
+
+Don't accept the first output. Improve it through follow-up prompts:
+
+**For More Detail:**
+```
+Expand the [SECTION] with more technical detail and specific examples.
+```
+
+**For Simplification:**
+```
+Simplify this for a non-technical audience. Remove jargon and explain in business terms.
+```
+
+**For Format Changes:**
+```
+Reformat the TTPs section as a table with columns for Tactic, Technique ID, Name, Description, and Detection Method.
+```
+
+**For Missing Content:**
+```
+Add a section on [TOPIC] with [SPECIFIC_REQUIREMENTS].
+```
+
+### Quality Validation Checklist
+
+After generating intelligence, always validate:
+
+**Accuracy:**
+- [ ] Facts are verifiable
+- [ ] MITRE ATT&CK IDs are correct
+- [ ] Attribution is properly caveated
+- [ ] Dates and timelines are accurate
+
+**Completeness:**
+- [ ] All requested sections present
+- [ ] Appropriate level of detail
+- [ ] No obvious gaps
+- [ ] References included
+
+**Relevance:**
+- [ ] Applies to your threat model
+- [ ] Appropriate for your environment
+- [ ] Timeframe is suitable
+- [ ] Audience-appropriate depth
+
+**Actionability:**
+- [ ] Clear recommendations
+- [ ] Specific detection guidance
+- [ ] Testable hunt hypotheses
+- [ ] Defined next steps
+
+### Reusable Templates
+
+For recurring tasks, save prompts with variables:
+
+```text
+## User Inputs
+- THREAT_ACTOR: [To be filled]
+- TIMEFRAME: [To be filled, default 90 days]
+- FOCUS: [To be filled]
+
+[Rest of prompt using these variables]
+```
+
+Replace bracketed values when using the template.
+
+---
+
+## Common Pitfalls
+
+### Pitfall 1: Vague Outputs
+**Problem:** Generic intelligence that could apply to anyone
+
+**Solution:**
+- Provide specific environment context in prompts
+- Request specific TTPs, not general descriptions
+- Use follow-up: "That's too generic. Provide specific implementation details for [TTP] including command examples."
+
+### Pitfall 2: Hallucinations
+**Problem:** AI generates plausible but incorrect information
+
+**Solution:**
+- Always validate critical facts against known sources
+- Request confidence levels: "For each claim, provide confidence (High/Medium/Low) and source."
+- Cross-reference MITRE ATT&CK technique IDs
+- Challenge suspicious claims: "What's the source for that attribution?"
+
+### Pitfall 3: Wrong Audience Level
+**Problem:** Technical depth doesn't match intended audience
+
+**Solution:**
+- Explicitly state audience in Persona and Context
+- Provide examples of appropriate tone
+- Request revision if missed: "Rewrite for [AUDIENCE] who has [KNOWLEDGE_LEVEL]."
+
+### Pitfall 4: Outdated Intelligence
+**Problem:** AI includes old or irrelevant information
+
+**Solution:**
+- Be explicit about timeframes: "Only include intelligence from last [TIMEFRAME]."
+- Specify environment: "Our environment is Windows-based. Exclude Linux TTPs unless strongly relevant."
+- Focus on current activity: "Prioritize current active campaigns over historical profiles."
+
+### Pitfall 5: Missing Context
+**Problem:** Indicators or TTPs without explanation
+
+**Solution:**
+- Require context: "For each IOC, provide: Type, Value, Confidence, Context (what it is), and How to Use It."
+- Ask for narrative: "Don't just list TTPs. Explain how adversaries implement each, why it's effective, and how to detect it."
+
+### Pitfall 6: Insufficient Actionability
+**Problem:** Interesting intelligence but no clear actions
+
+**Solution:**
+- Explicitly request actions: "Based on this intelligence, provide: 1) Three hunt hypotheses (SMART), 2) Detection queries for each TTP, 3) Required data sources, 4) Immediate actions."
+- Ask "so what?": "What should threat hunters DO with this intelligence? Provide specific steps."
+
+### Pitfall 7: No Prioritization
+**Problem:** Multiple ideas but no guidance on where to start
+
+**Solution:**
+- Request prioritization: "Generate 5-7 hunt hypotheses and rank by priority. Explain prioritization based on likelihood of detection, risk if undetected, and feasibility."
+- Ask for sequencing: "In what order should these hunts execute? Provide recommended roadmap."
+
+---
+
+### Ongoing: Continuous Improvement
+
+- Build a team prompt library
+- Share successful prompts
+- Document lessons learned
+- Update templates as AI capabilities evolve
+
+### Tips for Success
+
+1. **Start Simple:** Begin with Prompt 1 for basic intelligence gathering
+2. **Validate Everything:** Always verify key facts against known sources
+3. **Iterate:** Use follow-up prompts to refine outputs
+4. **Document:** Save successful prompts as templates
+5. **Measure:** Track time savings and quality improvements
+6. **Share:** Collaborate with your team on effective prompts
+7. **Stay Current:** AI capabilities evolve; update your approaches
+
+### Remember
+
+- AI augments, doesn't replace, threat hunters
+- Human validation is always required
+- Quality prompts = quality intelligence
+- Iteration improves outputs
+- Context is everything
+
+The best threat hunters don't just use AI; they use it strategically to spend more time doing what AI cannot: thinking creatively, developing innovative hypotheses, and identifying threats that others miss.
 
 ---
 
 ## References
 
-1. **Definitive Guide to Cyber Threat Intelligence** - Comprehensive framework for CTI programs and practices
+1. **Operationalizing Google Agentic Threat Intelligence** - Google Cloud Security Community - Comprehensive agentic AI applications in threat intelligence
 
-2. **Who's Using Cyberthreat Intelligence and How?** - SANS Institute - Research on CTI adoption and effectiveness
+2. **Agentic Threat Intelligence: Your Security Team Just Grew** - Google Cloud Security Community - AI-powered threat intelligence introduction
 
-3. **The Threat Hunter's Handbook** - ChaosSearch - Methodology for hypothesis-driven threat hunting
+3. **Agentic GTI Prompting** - Google Cloud Security Community - Detailed prompt engineering guide
 
-4. **MITRE ATT&CK Framework** - https://attack.mitre.org/ - Comprehensive knowledge base of adversary TTPs
+4. **Unified Threat Hunting Process** - https://github.com/sims718718/UnifiedThreatHunting - Structured methodology for hypothesis-driven threat hunting
 
-5. **Unified Threat Hunting Process** - https://github.com/sims718718/UnifiedThreatHunting - Structured methodology for threat hunting operations
+5. **Cyber Threat Intelligence: A Practical Guide for Threat Hunters** - Companion guide on CTI fundamentals
 
-6. **Cyber Kill Chain** - Lockheed Martin - Framework for understanding attack progression
-
-7. **Pyramid of Pain** - David Bianco - Model for understanding indicator value and adversary difficulty
+6. **MITRE ATT&CK Framework** - https://attack.mitre.org/ - Comprehensive adversary TTP knowledge base
 
 ---
 
-*This guide is designed to be a living document. As threat landscapes evolve and new intelligence sources emerge, update your processes and practices accordingly. Share your learnings with the community and contribute to the collective defense.*
+*This guide is platform-agnostic and works with any major AI system. Adapt the prompts to your specific threat intelligence platforms, tools, and data sources. As AI capabilities evolve, update your prompting strategies accordingly.*
+
+*Version 2.0 (Condensed) - January 2026*
