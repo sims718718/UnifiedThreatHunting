@@ -2,7 +2,7 @@
 
 # A Unified Threat Hunting Process
 
-As Lead Threat Hunter, I was tasked with building a Threat Hunt Program from scratch. This involved plenty of thought about what threat hunting actually is and how to translate it into meaningful results. Many hours went into reading various methodologies around threat hunting, detection engineering, Cyber Threat Intelligence (CTI), forensics and even experience pulled from my time in the United State Air Force. However, through building a program, I realized I needed one process… a Unified Threat Hunting Process. I developed this process to provide a structured and defined way to hunt and ultimately to provide meaningful outcomes for the organization.
+As Lead Threat Hunter, I was tasked with building a Threat Hunt Program from scratch. This involved plenty of thought about what threat hunting actually is and how to translate it into meaningful results. Many hours went into reading various methodologies around threat hunting, detection engineering, Cyber Threat Intelligence (CTI), forensics and even experience  from my time in the United State Air Force. However, through building a program, I realized I needed one process… a Unified Threat Hunting Process. I developed this process to provide a structured and defined way to hunt and ultimately to provide meaningful outcomes for the organization.
 
 ---
 ```mermaid
