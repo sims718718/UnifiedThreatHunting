@@ -5,7 +5,7 @@
 - [What is Cyber Threat Intelligence](#what-is-cyber-threat-intelligence)
 - [Good vs Bad Threat Intelligence](#good-vs-bad-threat-intelligence)
 - [CTI's Critical Role in Threat Hunting](#ctis-critical-role-in-threat-hunting)
-- [Building Value Through CTI Programs](#building-value-through-cti-programs)
+- [Building Value Through CTI](#building-value-through-cti)
 - [References](#references)
 
 ---
@@ -417,7 +417,7 @@ This feedback loop is critical for continuous improvement and organizational lea
 
 ---
 
-## Building Value Through CTI Programs
+## Building Value Through CTI 
 
 A mature CTI program doesn't just collect indicators – it systematically delivers value to threat hunting operations and the broader security organization. This section outlines how to build and mature a CTI capability that directly supports threat hunting objectives.
 
