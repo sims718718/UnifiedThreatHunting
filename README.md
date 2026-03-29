@@ -1,10 +1,9 @@
-
-
 # A Unified Threat Hunting Process
 
-As Lead Threat Hunter, I was tasked with building a Threat Hunt Program from scratch. This involved plenty of thought about what threat hunting actually is and how to translate it into meaningful results. Many hours went into reading various methodologies around threat hunting, detection engineering, Cyber Threat Intelligence (CTI), forensics and even experience  from my time in the United State Air Force. However, through building a program, I realized I needed one process… a Unified Threat Hunting Process. I developed this process to provide a structured and defined way to hunt and ultimately to provide meaningful outcomes for the organization.
+As Lead Threat Hunter, I was tasked with building a Threat Hunt Program from scratch. This involved plenty of thought about what threat hunting actually is and how to translate it into meaningful results. Many hours went into reading various methodologies around threat hunting, detection engineering, Cyber Threat Intelligence (CTI), forensics, and even experience from my time in the United States Air Force. However, through building a program, I realized I needed one process — a Unified Threat Hunting Process. I developed this process to provide a structured and defined way to hunt and ultimately to deliver meaningful outcomes for the organization.
 
 ---
+
 ```mermaid
 graph LR
     A[Triggering Event] --> B[Hypothesis Development]
@@ -18,14 +17,15 @@ graph LR
     I --> A
 ```
 
+---
 
 ## What is Threat Hunting?
 
-To put it simply, threat hunting is the act of proactively searching for and identifying threats that have bypassed security controls. There’s some leeway in this definition, but the core idea is that it is proactive and seeks to identify the unknown.
+To put it simply, threat hunting is the act of proactively searching for and identifying threats that have bypassed security controls. There's some leeway in this definition, but the core idea is that it is proactive and seeks to identify the unknown.
 
 Now, the real question is: **how do you accomplish threat hunting that is meaningful?**
 
-There are multitudes of frameworks out there including PEAK, TaHiTI, OTHF, AIMOD2 and likely even more that I’ve missed. However, this begs key questions when building a program and defining processes:
+There are multitudes of frameworks out there including PEAK, TaHiTI, OTHF, AIMOD2, and likely even more that I've missed. However, this begs key questions when building a program and defining processes:
 
 - Is one framework more correct than the others?
 - Do I just choose one?
@@ -40,19 +40,28 @@ This Unified Threat Hunting Process is a combination of many of these frameworks
 
 ## Types of Threat Hunting
 
-There are various methods described for conducting hunt operations: structured, unstructured, TTP-focused, intel-focused, data-driven, etc. While this Unified Threat Hunting Process may seem structured, that doesn’t mean your hypothesis can’t be driven by data in an unstructured manner. This process aims to incorporate various types of threat hunting allowing a modular approach. Really we would use all of these techniques to ensure we are thoroughly testing our hypothesis.
+There are various methods described for conducting hunt operations: structured, unstructured, TTP-focused, intel-focused, data-driven, etc. While this Unified Threat Hunting Process may seem structured, that doesn't mean your hypothesis can't be driven by data in an unstructured manner. This process aims to incorporate various types of threat hunting, allowing a modular approach. We would use all of these techniques to ensure we are thoroughly testing our hypothesis.
 
-We are aiming on develop a modular approach to threat hunting where there is not a one size fits all. Use all the techniques at your disposal.
+The goal is a modular approach to threat hunting where there is no one-size-fits-all. Use all the techniques at your disposal.
 
-Following data science principles and regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
+In practice, the hunt type you choose depends on where you are starting in the **DAIKI chain** (Data → Information → Knowledge → Insight):
 
-**Note:** While typically you want to focus on behaviors or TTPs, sometimes IoCs have their merit if they are truely actionable and timely. While I do not believe hunting IoCs across an envionrment is really threat hunting, they could still provide useful information and another starting point. They can be a part of the cycle of your hunt but not the entire hunt itself.
+| Hunt Type | Starting Point | Characteristics |
+|---|---|---|
+| **Exploratory (EDA)** | Raw data | Baselining, understanding data shape, no prior hypothesis |
+| **Hypothesis-Based (HBO)** | Situational awareness | Testing credible attack scenarios based on team knowledge |
+| **Threat-Informed (TIO)** | Actionable CTI | Intelligence-driven, known actor or TTP focus |
+| **Purple Operations (DPO)** | Red team insight | Joint offensive/defensive validation |
+
+Following data science principles, regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. This will be explained more when we begin executing the hunt.
+
+> **Note:** While you typically want to focus on behaviors or TTPs, IoCs have their merit if they are truly actionable and timely. While hunting IoCs across an environment is not really threat hunting, they can still provide useful information and another starting point. They can be a part of the hunt cycle, but not the entire hunt itself.
 
 ---
 
 ## The Trigger
 
-Borrowing from the TaHiTI framework, threat hunting begins with a triggering event. These events justify the initiation of a hunt. According to TaHiTI, Triggers can include:
+Borrowing from the TaHiTI framework, threat hunting begins with a triggering event. These events justify the initiation of a hunt. According to TaHiTI, triggers can include:
 
 - CTI (Cyber Threat Intelligence)
 - Incomplete use cases
@@ -60,7 +69,7 @@ Borrowing from the TaHiTI framework, threat hunting begins with a triggering eve
 - Red teaming
 - MITRE TTPs
 
-For our organization, we use these along with a few additional triggers such as direct requirements from stakeholders.
+For our organization, we use these along with a few additional triggers such as direct requirements from stakeholders and vulnerability disclosures affecting the environment.
 
 Some frameworks begin the threat hunt with the initial **Hypothesis** (step 2 here), but I ask: how do you come to that hypothesis in the first place?
 
@@ -74,31 +83,31 @@ There is likely a triggering event that leads to the initial hypothesis. Just as
 
 ## Hypothesis Development
 
-Next and maybe the most important step is building a hunt hypothesis. This step, while critical, can also be the most ambiguous. Your hypothesis can either lead you to gold or down a never-ending rabbit hole.
+Next, and maybe the most important step, is building a hunt hypothesis. This step, while critical, can also be the most ambiguous. Your hypothesis can either lead you to gold or down a never-ending rabbit hole.
 
 From data science principles, your hypothesis is about creating testable statements to guide your analysis. Not only that, but you should aim to make your hypothesis **SMART**:
 
-- **Specific**: Clear and unambiguous no room for misinterpretation. Don’t try to hunt for every single TTP in one go.
+- **Specific**: Clear and unambiguous — no room for misinterpretation. Don't try to hunt for every single TTP in one go.
 - **Measurable**: Must have quantifiable criteria to track progress. (We use Jira for this later.)
-- **Achievable**: Realistic and within your team’s capabilities. Don’t aim for telemetry you simply don’t have.
+- **Achievable**: Realistic and within your team's capabilities. Don't aim for telemetry you simply don't have.
 - **Relevant**: Should align with organizational goals. Make it meaningful to the mission.
 - **Time-bound**: Establish deadlines. No never-ending hunts.
 
-When building a hypothesis you may actually create numerous hypotheses. A book to read regarding this is _Psychology of intelligence_ by Richards J. Heuer which was published by the CIA's Center for the Study of Intelligence. Heuer decribes Competing Hypotheses which is benfical to your hunting efforts. 
+When building a hypothesis you may actually develop numerous competing hypotheses. A book worth reading on this is _Psychology of Intelligence Analysis_ by Richards J. Heuer, published by the CIA's Center for the Study of Intelligence. Heuer describes Competing Hypotheses, which is beneficial to your hunting efforts.
 
-The process draws on defining multiple hypothesis and determining the most valid among them. This process provides rigor the hypothesis building which can help define the basis of the hunt. There are 7 steps that describes:
+The process involves defining multiple hypotheses and determining the most valid among them, providing rigor to the hypothesis-building phase that can help define the basis of the hunt. The 7-step process is described as follows:
 
-    1. Enumerate all hypotheses
-    2. Seeking supporting evidnece for each hypothesis
-    3. Compare evidence against the hypotheses. Heuer buidls a matrix to do this.
-    4. Remove evidnece that has little value through the matrix.
-    5. Prioritize hypthesis by likelyhood
-    6. See which conclusion rely on too small amount of evidnece. Also, consdier if evidnece is incorrect.
-    7. Document comparison of your hypothesis comparisons.
-    
-The next two phases lean into this process for defining if a hunt should or should not be executed based on a hypothesis.    
+1. Enumerate all hypotheses
+2. Seek supporting evidence for each hypothesis
+3. Compare evidence against the hypotheses — Heuer builds a matrix to do this
+4. Remove evidence that has little diagnostic value through the matrix
+5. Prioritize hypotheses by likelihood
+6. Identify which conclusions rely on too little evidence, and consider whether that evidence could be incorrect
+7. Document the comparison of your hypotheses
 
-Additionally, a key concept from the AIMOD2 framework is the underlying hypothesis of **assumed breach**. We are focusing on identifying the unknown, under the assumption that an adversary has already bypassed our controls.
+The next two phases lean into this process for defining whether a hunt should or should not be executed based on a hypothesis.
+
+Additionally, a key concept from the AIMOD2 framework is the underlying hypothesis of **assumed breach** — we are focusing on identifying the unknown, under the assumption that an adversary has already bypassed our controls.
 
 ---
 
@@ -106,10 +115,10 @@ Additionally, a key concept from the AIMOD2 framework is the underlying hypothes
 
 In the **Initial Assessment** phase, we collect and research data to support our hypothesis. This includes both internal and external sources.
 
-- **Internal sources**: Previous hunts, lessons learned, documentation review of internal applications, network/application diagrams, code repositories, internal threat intel.
-- **External sources**: OSINT, vendor blogs, and Request for Information (RFI) to trusted external organizations.
+- **Internal sources**: Previous hunts, lessons learned, documentation review of internal applications, network and application diagrams, code repositories, internal threat intel.
+- **External sources**: OSINT, vendor blogs, and Requests for Information (RFI) to trusted external organizations.
 
-A sub-step to this is identifying and, if necessary, interviewing business or technical owners. Depending on your hunt, you may need to communicate with SMEs for understanding. This isn't always needed you may already know the systems, logging, and applications from experience or past hunts.
+A sub-step here is identifying and, if necessary, interviewing business or technical owners. Depending on your hunt, you may need to engage SMEs for deeper understanding. This isn't always needed — you may already know the systems, logging, and applications from experience or past hunts.
 
 The goal is not to become an expert on a system, but to develop sufficient understanding of the environment.
 
@@ -124,10 +133,19 @@ Before planning our hunt activities, we need to assess feasibility. This include
 - Data quality
 - Team skillsets
 - Timelines
+- Tooling availability
 
 Essentially, we ask: **"Is the juice worth the squeeze?"**
 
-If telemetry isn’t available, ask: can it be made available? What effort is required to do so?
+If telemetry isn't available, ask: can it be made available? What effort is required to do so?
+
+Each feasibility assessment should produce a clear decision:
+
+| Decision | Meaning |
+|---|---|
+| ✅ **GO** | All criteria met — proceed to planning |
+| ❌ **NO-GO** | Critical blockers exist — backlog with a remediation plan |
+| ⚠️ **CONDITIONAL** | Minor gaps — document assumptions and proceed with caveats |
 
 If a limiting factor prevents progress, backlog the idea and develop a plan to obtain the required telemetry while working on new hypotheses or hunts in the meantime.
 
@@ -137,15 +155,15 @@ If a limiting factor prevents progress, backlog the idea and develop a plan to o
 
 Here we define the **objectives** of the hunt. These represent the targets of our hunt and what needs to be accomplished to achieve our goal. These objectives will drive the hunt's direction and outcomes.
 
-Since our hunts are SMART, we must clearly define how we will **measure and manage** them.
+Since our hunts are SMART, we must clearly define how we will **measure and manage** them. This includes specifying the target environment segments, the analysis time window, in-scope systems and assets, and any explicit exclusions.
 
 ---
 
 ## Formalize Action Plan (Hunt Plan)
 
-Now we’ve arrived at the fun part?...building the Hunt Plan.
+Now we've arrived at the fun part — building the Hunt Plan.
 
-A key for any hunt is documenting your actions and findings. This makes reporting much easier, allows us to retain artifacts, and ensures our outcomes are repeatable.
+A key principle for any hunt is documenting your actions and findings. This makes reporting much easier, allows us to retain artifacts, and ensures our outcomes are repeatable.
 
 Our team uses **Jira**, but any documentation tool works. The key is: **just document**.
 
@@ -158,58 +176,60 @@ Represents the overarching hypothesis or theme of the hunt. We include:
 - Supporting documentation
 - Initial research (e.g., CTI, internal documentation)
 - Relevance and justification for the hunt
+- MITRE ATT&CK technique mappings
+- Data sources required with field-level detail
 
 ### Stories (Hunts)
 
-These are the discrete investigations or tests aligned to the Epic’s hypothesis. You can have one or more stories under a hypothesis to ultimately **prove or disprove** it. Each story should reflect a single thought process and function as a test. The idea of developing multiple tests is not not only to thouroughly investigate your hypothesis, but to also challenge any initial thought processes. We should be **challenging what you already know.** Remember threat hunting is about chasing the unknown and while you should cover your basis for a simple test (i.e string search for encoded commands) we should strive to think harder and deeper if we really want to find the unknown. I believe there should be some level of struggle in the hunting process otherwise you are probably not learning and likely implementing a hunt that already exists. If that is the case then ask yourself what is the point?
+These are the discrete investigations or tests aligned to the Epic's hypothesis. You can have one or more stories under a hypothesis to ultimately **prove or disprove** it. Each story should reflect a single thought process and function as a test. The idea of developing multiple tests is not only to thoroughly investigate your hypothesis, but to also challenge initial assumptions. We should be **challenging what we already know.** Remember, threat hunting is about chasing the unknown — and while you should cover the basics for a simple test (e.g., a string search for encoded commands), we should strive to think harder and deeper if we really want to find the unknown. I believe there should be some level of struggle in the hunting process; otherwise you are probably not learning and are likely implementing something that already exists as a detection. If that is the case, ask yourself: what is the point?
 
-Example:  
+**Example:**  
 If my hypothesis is about anomalous logon events from administrative accounts, I might have two stories:
 
-1. One test using Event Codes 4624/4672 and applying known environmental context to a baseline.
-2. Another using Machine Learning to model anomalies.
+1. One test using Event Codes 4624/4672 and applying known environmental context to establish a baseline.
+2. Another using machine learning to model anomalies.
 
-Different subjects, same hypothesis. As we may need various tests to complete the hunt.
+Different methods, same hypothesis. Various tests may be needed to fully complete the hunt.
 
 ---
 
 ### Hunt Execution Steps
 
-- **Gather and Analyze Data**  
-  - Retrieve from designated sources
-  - Understand the Data   
-  - Data cleaning, transforming and modeling  
+- **Gather and Analyze Data**
+  - Retrieve data from designated sources
+  - Understand the data shape and coverage
+  - Data cleaning, transformation, and modeling
 
-- **Investigate and Validate Threats**  
-  - Test hypothesis against data and refine hypothesis as needed
+- **Investigate and Validate Threats**
+  - Test hypothesis against data and refine as needed
   - Filtering and querying
-  - Temporal and trend Data Analysis  
+  - Temporal and trend data analysis
   - Advanced analytics (clustering, statistical methods, ML)
-  - Known TTPs   
+  - Known TTPs as reference anchors
 
-- **Document Observations and Insights**  
-  - Anomalies and insights  
-  - Hypothesis changes  
+- **Document Observations and Insights**
+  - Anomalies and insights surfaced
+  - Hypothesis changes made during the hunt
   - Techniques used
-  - Data Sources
-  - TTP coverage
+  - Data sources accessed
+  - TTP coverage validated
 
-By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of <https://threathunterplaybook.com/intro.html> that were easy to reference and made reporting more efficient. These stories/playbooks also served as a hunt repository where we could reference previous hunts too.
+By using tools like Jira, documentation becomes a lightweight playbook. Our team naturally began developing structured playbooks reminiscent of <https://threathunterplaybook.com/intro.html> that were easy to reference and made reporting more efficient. These stories and playbooks also served as a hunt repository where we could reference previous hunts.
 
 ---
 
 ### Tasks (Outcomes)
 
-Tasks log the **results** of the hunt and are linked to their Epic for tracking purposes. They contain outcomes such as (mainly from PEAK and AIMOD2 Frameworks):
+Tasks log the **results** of the hunt and are linked to their parent Epic for tracking purposes. They contain outcomes such as (drawn primarily from the PEAK and AIMOD2 frameworks):
 
-- **New Hunt Ideas** – Future hypotheses or Use Cases to explore
-- **Analytics/Detection** – Rules, dashboards, or signatures created
-- **Security Incident** – Escalation to IR and/or incidents opened
-- **Written Report** – Final hunt report
-- **Visibility Gap** – Missing telemetry identified
-- **Security Control Issue** – Gaps in existing defenses
+- **New Hunt Ideas** — Future hypotheses or use cases to explore
+- **Analytics/Detection** — Rules, dashboards, or signatures created
+- **Security Incident** — Escalation to IR and/or incidents opened
+- **Written Report** — Final hunt report
+- **Visibility Gap** — Missing telemetry identified
+- **Security Control Issue** — Gaps in existing defenses discovered
 
-Metrics are essential to a hunting program as your management likely thinks in numbers. Quantatifable metrics are essential for measuing the effectiveness of your efforts and prove a level a maturity. Addtionally, we also must consider what metrics actually matter and what could be considered bad metrics. We should shy away from metrics simply tracking work (hours spent) or how many hunts have been executed for something more impactful. The metrics should help anaswer the question **"so what?"** for your organization.
+Metrics are essential to a hunting program, as your management likely thinks in numbers. Quantifiable metrics are essential for measuring the effectiveness of your efforts and demonstrating program maturity. We must also consider what metrics actually matter versus what could be considered bad metrics. We should shy away from metrics that simply track activity — hours spent, number of hunts executed — in favor of something more impactful. The metrics should help answer the question **"so what?"** for your organization.
 
 ---
 
@@ -224,33 +244,35 @@ graph TD;
     B2 --> C4[Task - New Hunt Idea];
 ```
 
+---
 
 ## Automation/AI: Enabling Repeatable Hunts
 
-Now we can talk about automation. This isn’t about automating threat hunting itself as hunting will always require human-driven hypothesis testing and analysis. Instead, we focus on automating the **outputs and repeatable components** of successful hunts.
+Now we can talk about automation. This isn't about automating threat hunting itself — hunting will always require human-driven hypothesis testing and analysis. Instead, we focus on automating the **outputs and repeatable components** of successful hunts.
 
-One of the most valuable outcomes from a hunt is a detection or analytic. Detections are straightforward they can be passed through the detection engineering pipeline and operationalized by the SOC. But not every analytic becomes a detection. Some require human review, context, or deeper analysis. Borrowing from Google SecOps’ mindset *analysts should spend less time gathering data and more time analyzing* we can apply automation to streamline those parts of the hunt that are repetitive or data-heavy.
+One of the most valuable outcomes from a hunt is a detection or analytic. Detections are straightforward — they can be passed through the detection engineering pipeline and operationalized by the SOC. But not every analytic becomes a detection. Some require human review, context, or deeper analysis. Borrowing from Google SecOps' mindset — *analysts should spend less time gathering data and more time analyzing* — we can apply automation to streamline the parts of the hunt that are repetitive or data-heavy.
 
 Automation and AI should focus on:
+
 - Automating recurring queries and scheduled hunts
 - Enriching data with threat intel automatically
 - Re-running validated hypotheses across new time ranges
 - Generating structured reports or Jira tickets
 - Alerting on baseline deviations or visibility gaps
-- Developing **and** challenging intial hypothesis
+- Developing **and** challenging initial hypotheses
 
-I have helped automate the hunt planning process through developing a threat-hunt-planner skill. This does not automating hunting per say but gives you an intial hunt plan based on this Unified Hunting Process. Again, the goal is to get analysts into hunting faster while also making the process more repetable. This skill should be only a draft and you should challenge it to ensure it meets the objectives you set. - https://github.com/sims718718/UnifiedThreatHunting/blob/main/Theat_Hunt_Planner_Skill/threat_hunt_planner_user_guide.md 
+I have helped automate the hunt planning process by developing a **threat-hunt-planner skill**. This does not automate hunting per se, but gives you an initial hunt plan grounded in this Unified Hunting Process. The goal is to get analysts into hunting faster while also making the process more repeatable. This skill should be treated as a draft — challenge it to ensure it meets the objectives you set. → [threat-hunt-planner user guide](https://github.com/sims718718/UnifiedThreatHunting/blob/main/Theat_Hunt_Planner_Skill/threat_hunt_planner_user_guide.md)
 
-Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable** ( see https://github.com/sims718718/UnifiedThreatHunting/blob/main/DetectionEngineering_Meets_ThreatHunting/Signal-Based_Threat_Hunting.md). As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that we stay focused on thinking, not fetching. Addtionally, we should use automation to save time in many steps within the threat hunting process. Use AI to help build your hunt plan or even your hypothesis even. However, never take this at face value. Challenge it, research it, understand it.
+Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable** (see [Signal-Based Threat Hunting](https://github.com/sims718718/UnifiedThreatHunting/blob/main/DetectionEngineering_Meets_ThreatHunting/Signal-Based_Threat_Hunting.md)). As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value generated from threat hunting compounds over time, keeping us focused on thinking — not fetching. Use automation to save time across many steps of the threat hunting process. Use AI to help build your hunt plan or even your initial hypothesis. However, never take this at face value. Challenge it, research it, understand it.
 
-Finally, thanks for reading and shoutout to authors for all of the references used for this process. Have fun hunting!
+Finally, thanks for reading — and shoutout to all the authors behind the references that informed this process. Have fun hunting!
 
-#### References:
+---
+
+#### References
+
 - <https://www.splunk.com/en_us/blog/security/peak-threat-hunting-framework.html>
 - <https://aimod2.com/>
 - <https://github.com/TactiKoolSec/OTHF>
 - <https://threathunterplaybook.com/intro.html>
 - <https://cloud.google.com/transform/how-google-does-it-modernizing-threat-detection>
-
-
-
