@@ -209,7 +209,7 @@ Tasks log the **results** of the hunt and are linked to their Epic for tracking 
 - **Visibility Gap** – Missing telemetry identified
 - **Security Control Issue** – Gaps in existing defenses
 
-Metrics are essential to a hunting program as your management likely thinks in numbers. Quantatifable metrics are essential for measuing the effectiveness of your efforts and prove a level a maturity. Addtionally, we also must consider what metrics actually matter and what could be considered bad metrics. We should shy away from metrics simply tracking work (hours spent) or how many hunts have been executed for something more impactful. The metrics should help as the question **"so what?"** for your organization.
+Metrics are essential to a hunting program as your management likely thinks in numbers. Quantatifable metrics are essential for measuing the effectiveness of your efforts and prove a level a maturity. Addtionally, we also must consider what metrics actually matter and what could be considered bad metrics. We should shy away from metrics simply tracking work (hours spent) or how many hunts have been executed for something more impactful. The metrics should help anaswer the question **"so what?"** for your organization.
 
 ---
 
@@ -227,7 +227,7 @@ graph TD;
 
 ## Automation/AI: Enabling Repeatable Hunts
 
-Now we can talk about automation. This isn’t about automating threat hunting itself hunting will always require human-driven hypothesis testing and analysis. Instead, we focus on automating the **outputs and repeatable components** of successful hunts.
+Now we can talk about automation. This isn’t about automating threat hunting itself as hunting will always require human-driven hypothesis testing and analysis. Instead, we focus on automating the **outputs and repeatable components** of successful hunts.
 
 One of the most valuable outcomes from a hunt is a detection or analytic. Detections are straightforward they can be passed through the detection engineering pipeline and operationalized by the SOC. But not every analytic becomes a detection. Some require human review, context, or deeper analysis. Borrowing from Google SecOps’ mindset *analysts should spend less time gathering data and more time analyzing* we can apply automation to streamline those parts of the hunt that are repetitive or data-heavy.
 
@@ -238,6 +238,8 @@ Automation and AI should focus on:
 - Generating structured reports or Jira tickets
 - Alerting on baseline deviations or visibility gaps
 - Developing **and** challenging intial hypothesis
+
+I have helped automate the hunt planning process through developing a threat-hunt-planner skill. This does not automating hunting per say but gives you an intial hunt plan based on this Unified Hunting Process. Again, the goal is to get analysts into hunting faster while also making the process more repetable. This skill should be only a draft and you should challenge it to ensure it meets the objectives you set. - https://github.com/sims718718/UnifiedThreatHunting/blob/main/Theat_Hunt_Planner_Skill/threat_hunt_planner_user_guide.md 
 
 Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable** ( see https://github.com/sims718718/UnifiedThreatHunting/blob/main/DetectionEngineering_Meets_ThreatHunting/Signal-Based_Threat_Hunting.md). As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value we generate from threat hunting compounds over time and that we stay focused on thinking, not fetching. Addtionally, we should use automation to save time in many steps within the threat hunting process. Use AI to help build your hunt plan or even your hypothesis even. However, never take this at face value. Challenge it, research it, understand it.
 
