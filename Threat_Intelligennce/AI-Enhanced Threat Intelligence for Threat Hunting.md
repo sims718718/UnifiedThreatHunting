@@ -41,7 +41,7 @@ This guide focuses exclusively on using AI to gather and synthesize threat intel
 
 ---
 
-## the AI Advantage in Threat Intelligence
+## The AI Advantage in Threat Intelligence
 
 ### From Manual Research to Conversational Intelligence
 
