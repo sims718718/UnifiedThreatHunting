@@ -462,7 +462,7 @@ index=windows source="WinEventLog:Security" EventCode=4624 Logon_Type=10
 
 **What Happened:**
 
-The anomaly detection flagged the same patterns we already identified in manual analysisjump servers with the highest connection counts. While technically "outliers," these were expected behavior, not threats.
+The anomaly detection flagged the same patterns we already identified in manual analysis, jump servers with the highest connection counts. While technically "outliers," these were expected behavior, not threats.
 
 **Why This Occurred:**
 
