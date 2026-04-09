@@ -54,7 +54,7 @@ In practice, the hunt type you choose depends on where you are starting in the *
 | **Threat-Informed (TIO)** | Actionable CTI | Intelligence-driven, known actor or TTP focus |
 | **Purple Operations (DPO)** | Red team insight | Joint offensive/defensive validation |
 
-Following data science principles, regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. The [/Data Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data%20Analysis) folder in this repo contains supporting techniques and notebooks for that exploration phase.
+Following data science principles, regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. The [/Data_Analysis]([https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data%20Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis)) folder in this repo contains supporting techniques and notebooks for that exploration phase.
 
 > **Note:** While you typically want to focus on behaviors or TTPs, IoCs have their merit if they are truly actionable and timely. While hunting IoCs across an environment is not really threat hunting, they can still provide useful information and another starting point. They can be a part of the hunt cycle, but not the entire hunt itself.
 
