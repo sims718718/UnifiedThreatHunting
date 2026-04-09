@@ -329,7 +329,7 @@ index=windows source="WinEventLog:Security" EventCode=4624 Logon_Type=10
 - Local accounts on domain-joined systems
 - Accounts not following naming conventions
 
-**Example Finding**: In threat hunting exercises, this type of query has successfully identified red team activity where operators compromised service accounts and built-in root accounts to pivot throughout a domainactivity that would have gone unnoticed with standard monitoring.
+**Example Finding**: In threat hunting exercises, this type of query has successfully identified red team activity where operators compromised service accounts and built-in root accounts to pivot throughout a domain, activity that would have gone unnoticed with standard monitoring.
 
 ### Enriching with Lookup Tables
 
