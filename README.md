@@ -68,6 +68,7 @@ Borrowing from the TaHiTI framework, threat hunting begins with a triggering eve
 - Past incidents
 - Red teaming
 - MITRE TTPs
+- etc.
 
 For our organization, we use these along with a few additional triggers such as direct requirements from stakeholders and vulnerability disclosures affecting the environment.
 
