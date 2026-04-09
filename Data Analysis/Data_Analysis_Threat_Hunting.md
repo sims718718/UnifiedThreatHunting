@@ -146,7 +146,7 @@ With our hypothesis defined, let's explore the relevant dataset:
 index=windows source="WinEventLog:Security" EventCode=4624 Logon_Type=10
 ```
 
-**Note**: Over a short time frame (e.g., 15 minutes), you may see very few results. Expand your search window to capture sufficient data for meaningful analysistypically at least 7 days for baseline establishment.
+**Note**: Over a short time frame (e.g., 15 minutes), you may see very few results. Expand your search window to capture sufficient data for meaningful analysis typically at least 7 days or more for baseline establishment.
 
 ---
 
@@ -291,7 +291,7 @@ index=windows source="WinEventLog:Security" EventCode=4624 Logon_Type=10 user="*
 | sort - distinctSource
 ```
 
-While this confirms expected behavior, it establishes a baseline. The more interesting hunt is the inversefinding non-admin RDP sessions.
+While this confirms expected behavior, it establishes a baseline. The more interesting hunt is the inverse, non-admin RDP sessions.
 
 **Detection 2: Non-Admin RDP Sessions**
 
