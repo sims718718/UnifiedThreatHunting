@@ -26,7 +26,7 @@ Threat hunting is fundamentally a subset of data science. Both disciplines begin
 
 ### Why Data Science Matters for Threat Hunting
 
-Modern enterprise environments generate massive volumes of security telemetry. According to industry research, attackers often spend weeks moving laterally through networks before deploying their final payloadthe OldGremlin ransomware group, for example, has been observed spending an average of 49 days moving undetected within networks before launching attacks. Without a structured analytical approach, identifying these subtle indicators of compromise becomes nearly impossible.
+Modern enterprise environments generate massive volumes of security telemetry. According to industry research, attackers can spend weeks moving laterally through networks before deploying their final payload or that can spend minutes and with AI it is possible it could be second. Regardless of the speed, anomolies with the vast security datasets are still detectable as they will provide signals. 
 
 The methodologies covered in this guide will help you:
 
