@@ -54,7 +54,7 @@ In practice, the hunt type you choose depends on where you are starting in the *
 | **Threat-Informed (TIO)** | Actionable CTI | Intelligence-driven, known actor or TTP focus |
 | **Purple Operations (DPO)** | Red team insight | Joint offensive/defensive validation |
 
-Following data science principles, regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. The [/Data_Analysis]([https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data%20Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis)) folder in this repo contains supporting techniques and notebooks for that exploration phase.
+Following data science principles, regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. The [/Data_Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis) folder in this repo contains supporting techniques and notebooks for that exploration phase.
 
 > **Note:** While you typically want to focus on behaviors or TTPs, IoCs have their merit if they are truly actionable and timely. While hunting IoCs across an environment is not really threat hunting, they can still provide useful information and another starting point. They can be a part of the hunt cycle, but not the entire hunt itself.
 
@@ -367,7 +367,7 @@ Automation and AI should focus on:
 
 I have helped automate the hunt planning process by developing a **threat-hunt-planner skill**. This does not automate hunting per se, but gives you an initial hunt plan grounded in this Unified Hunting Process. The goal is to get analysts into hunting faster while also making the process more repeatable. This skill should be treated as a draft, challenge it to ensure it meets the objectives you set. → [threat-hunt-planner user guide](https://github.com/sims718718/UnifiedThreatHunting/blob/main/Theat_Hunt_Planner_Skill/threat_hunt_planner_user_guide.md)
 
-For data exploration techniques that feed the execution phase of any hunt, see [/Data Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data%20Analysis).
+For data exploration techniques that feed the execution phase of any hunt, see [/Data_Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis).
 
 Ultimately, hunts should not be one-time events. They should be **repeatable, measurable, and improvable** (see [Signal-Based Threat Hunting](https://github.com/sims718718/UnifiedThreatHunting/blob/main/DetectionEngineering_Meets_ThreatHunting/Signal-Based_Threat_Hunting.md)). As hunts mature, we should codify them into automated packages that allow us to scale our efforts without losing depth. This ensures that the value generated from threat hunting compounds over time, keeping us focused on thinking, not fetching. Use automation to save time across many steps of the threat hunting process. Use AI to help build your hunt plan or even your initial hypothesis. However, never take this at face value. Challenge it, research it, understand it.
 
