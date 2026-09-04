@@ -18,28 +18,26 @@ graph LR
     I --> A
 ```
 
----
 
-## What is Threat Hunting?
-
-To put it simply, threat hunting is the act of proactively searching for and identifying threats that have bypassed security controls. There's some leeway in this definition, but the core idea is that it is proactive and seeks to identify the unknown.
-
-Now, the real question is: **how do you accomplish threat hunting that is meaningful?**
-
-There are multitudes of frameworks out there including PEAK, TaHiTI, OTHF, AIMOD2, and likely even more that I've missed. However, this begs key questions when building a program and defining processes:
-
-* Is one framework more correct than the others?
-* Do I just choose one?
-* Does one fit our organizational needs better?
-* What do our stakeholders actually want?
-
-These questions and many more led me to build a process that works for our organization and, in my view, stays true to what threat hunting is.
-
-This Unified Threat Hunting Process is a combination of many of these frameworks rolled into one. Really, each of these frameworks follows a similar line of thinking but takes a slightly different approach. By comparing key concepts of each, I was able to define a methodology that helps mature the program.
 
 ---
 
-## Types of Threat Hunting
+## What this borrows, and what it adds
+ 
+Threat hunting is the proactive search for threats that bypassed your controls. That definition is settled; how to run it as a program is not. This process is a synthesis, and the table is the honest accounting of it:
+ 
+| Source | What it contributes here |
+|---|---|
+| **Sqrrl / Hunting Maturity Model** (Bianco) | The core loop and the maturity ladder used in [Maturity & Metrics](./docs/maturity-and-metrics.md) |
+| **TaHiTI** | The **trigger** as the true starting point, and handover to adjacent processes at close |
+| **PEAK** | Hunt typing (hypothesis / baseline / model-assisted) and the outcome-focused "act with knowledge" close |
+| **AIMOD2** | The **assumed breach** premise and the typed outcome categories |
+| **OTHF** | Operational framing for running hunts as a repeatable team function |
+| **This process adds** | Step 0 Environment Context · a hard feasibility **GO / NO-GO / CONDITIONAL** gate · Jira Epic/Story/Task with typed outcomes · a rubric-gated hypothesis and a specified detection handoff |
+ 
+The differentiators are the last row. Everything else is standing on other people's work, cited in [References](#references).
+
+## Hunt Types
 
 There are various methods described for conducting hunt operations: structured, unstructured, TTP-focused, intel-focused, data-driven, and so on. While this Unified Threat Hunting Process may seem structured, that doesn't mean your hypothesis can't be driven by data in an unstructured manner. This process aims to incorporate various types of threat hunting, allowing a modular approach. We would use all of these techniques to ensure we are thoroughly testing our hypothesis.
 
@@ -148,8 +146,13 @@ Additionally, a key concept from the AIMOD2 framework is the underlying hypothes
 
 In the **Initial Assessment** phase, we collect and research data to support our hypothesis. This includes both internal and external sources.
 
-* **Internal sources**: Previous hunts, lessons learned, documentation review of internal applications, network and application diagrams, code repositories, internal threat intel.
-* **External sources**: OSINT, vendor blogs, and Requests for Information (RFI) to trusted external organizations.
+- [ ] Previous hunts and lessons learned reviewed
+- [ ] Internal documentation: network/application diagrams, code repos, asset inventory
+- [ ] Internal threat intel and existing detection coverage checked
+- [ ] External: OSINT, vendor reporting, ATT&CK technique docs, relevant Sigma rules
+- [ ] RFIs issued to trusted external orgs if needed
+- [ ] Business/technical owners identified; SMEs interviewed where the environment is unfamiliar
+- [ ] Known-good behavior documented (this becomes your exclusion list)
 
 A sub-step here is identifying and, if necessary, interviewing business or technical owners. Depending on your hunt, you may need to engage SMEs for deeper understanding. This isn't always needed, you may already know the systems, logging, and applications from experience or past hunts.
 
@@ -202,6 +205,13 @@ If a limiting factor prevents progress, backlog the idea and develop a plan to o
 Here we define the **objectives** of the hunt. These represent the targets of our hunt and what needs to be accomplished to achieve our goal. These objectives will drive the hunt's direction and outcomes.
 
 Since our hunts are SMART, we must clearly define how we will **measure and manage** them. This includes specifying the target environment segments, the analysis time window, in-scope systems and assets, and any explicit exclusions.
+
+- **Environment segments** in scope
+- **Time window** for analysis
+- **In-scope assets**, and explicit **exclusions**
+- **Primary objective** — what validates or invalidates the hypothesis
+- **Secondary objectives** — additional value from the same data
+- **Success measure** — how you will know it is done
 
 ---
 
