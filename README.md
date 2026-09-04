@@ -358,6 +358,12 @@ GO with one caveat: one DC has a broken sourcetype (CONDITIONAL on parsing fix, 
 
 This is what a single hunt looks like end-to-end. The same structure scales to larger campaigns by adding more Stories under one Epic.
 
+## Worked Example
+ 
+`HUNT-042` — a CISA advisory on AS-REP Roasting against financial-sector service accounts, taken from trigger through hypothesis, feasibility (CONDITIONAL on a DC parsing gap), scope, Jira structure, and five typed outcomes including a shipped detection and a remediated control issue.
+ 
+Full walkthrough: **[examples/hunt-042-as-rep-roasting.md](./examples/hunt_example_asep_roasting.md)**
+
 ---
 
 ## Automation/AI: Enabling Repeatable Hunts
@@ -375,7 +381,7 @@ Automation and AI should focus on:
 * Alerting on baseline deviations or visibility gaps
 * Developing **and** challenging initial hypotheses
 
-I have helped automate the hunt planning process by developing a **threat-hunt-planner skill**. This does not automate hunting per se, but gives you an initial hunt plan grounded in this Unified Hunting Process. The goal is to get analysts into hunting faster while also making the process more repeatable. This skill should be treated as a draft, challenge it to ensure it meets the objectives you set. → [threat-hunt-planner user guide](https://github.com/sims718718/UnifiedThreatHunting/blob/main/Theat_Hunt_Planner_Skill/threat_hunt_planner_user_guide.md)
+I have helped automate the hunt planning process by developing a **threat-hunt-planner skill**. This does not automate hunting per se, but gives you an initial hunt plan grounded in this Unified Hunting Process. The goal is to get analysts into hunting faster while also making the process more repeatable. This skill should be treated as a draft, challenge it to ensure it meets the objectives you set. → [threat-hunt-planner user guide](./Threat_Hunt_Planner_Skill/threat-hunt-planner%20(2).skill)
 
 For data exploration techniques that feed the execution phase of any hunt, see [/Data_Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis).
 
