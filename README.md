@@ -385,6 +385,19 @@ Finally, thanks for reading, and shoutout to all the authors behind the referenc
 
 ---
 
+## Artifacts
+ 
+| Artifact | Used at |
+|---|---|
+| [Hypothesis Quality Rubric](./references/hypothesis_rubric.md) | Step 2 — gate before feasibility |
+| [Telemetry Gap Assessment](./references/telemetry_gap_assessment.md) | Step 4 — scores the GO/NO-GO inputs |
+| [Detection Handoff Spec](./references/detection_handoff_spec.md) | Outcomes — Analytics/Detection |
+| [Validation Hook](./references/validation_hook.md) | Outcomes — before handoff closes |
+| [Maturity & Metrics](./docs/maturity_metric.md) | Step 7 and program review |
+| [Modern Domain Matrix](./docs/modern_domain_matrix.md) | Step 0 and Step 2 |
+ 
+---
+
 #### References
 
 * <https://www.splunk.com/en_us/blog/security/peak-threat-hunting-framework.html>
