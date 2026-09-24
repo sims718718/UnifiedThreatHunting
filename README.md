@@ -54,6 +54,8 @@ In practice, the hunt type you choose depends on where you are starting in the *
 
 Following data science principles, regardless of the hunting type, you should aim to explore and understand the data sources relevant to your hunt. The [/Data_Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis) folder in this repo contains supporting techniques and notebooks for that exploration phase.
 
+Addtionally, Threat Intelligence whether a starting point or not, **is engrained into the entire process to help drive operations.**[Threat Intelligence](https://github.com/sims718718/UnifiedThreatHunting/blob/main/Threat_Intelligence/Intelligence-Led_Threat_Hunting.md)
+
 > **Note:** While you typically want to focus on behaviors or TTPs, IoCs have their merit if they are truly actionable and timely. While hunting IoCs across an environment is not really threat hunting, they can still provide useful information and another starting point. They can be a part of the hunt cycle, but not the entire hunt itself.
 
 ---
