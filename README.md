@@ -28,7 +28,7 @@ Threat hunting is the proactive search for threats that bypassed your controls. 
  
 | Source | What it contributes here |
 |---|---|
-| **Sqrrl / Hunting Maturity Model** (Bianco) | The core loop and the maturity ladder used in [Maturity & Metrics](./docs/maturity-and-metrics.md) |
+| **Sqrrl / Hunting Maturity Model** (Bianco) | The core loop and the maturity ladder used in [Maturity & Metrics](https://github.com/sims718718/UnifiedThreatHunting/tree/main/docs) |
 | **TaHiTI** | The **trigger** as the true starting point, and handover to adjacent processes at close |
 | **PEAK** | Hunt typing (hypothesis / baseline / model-assisted) and the outcome-focused "act with knowledge" close |
 | **AIMOD2** | The **assumed breach** premise and the typed outcome categories |
