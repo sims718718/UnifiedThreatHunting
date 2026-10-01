@@ -85,4 +85,23 @@ Maintain a standing DeTT&CT data-source YAML for the environment and regenerate 
 
 ---
 
+## 6. Multi-tenant: tenant × component matrix
+
+*Optional — only for teams running [multi-tenant mode](../docs/multi_tenant_operation.md).*
+
+The §1 column "Log source in our stack" becomes one column per tenant. Score each cell as visibility / data quality, then apply the §3 decision rules **unchanged, per column**:
+
+| Data component | tenant-a | tenant-b | tenant-c |
+|---|---|---|---|
+| Win Security 4768 (vis / quality) | 4 / 4 | 3 / 2 | 0 / – |
+| Entra ID audit (vis / quality) | 3 / 4 | 4 / 4 | 2 / 3 |
+| **Decision** | **GO** | **CONDITIONAL** | **NO-GO** |
+
+- Check authorization first: a tenant that is **NOT AUTHORIZED** (no RoE, or action outside `allowed_actions` in its profile) gets no column.
+- The retention check uses each tenant's `retention` from `tenants/<id>/profile.yaml`; the instance window is `min(requested, retention)`.
+- CONDITIONAL caveat wording names the tenant: "…across [tenant] / [asset scope]."
+- **Program-level payoff:** aggregated across campaigns, this matrix is a cross-tenant ATT&CK visibility heatmap. It feeds §5 and gives onboarding a concrete gap list per tenant. Share it with a tenant only for their own column.
+
+---
+
 **References:** DeTT&CT (https://github.com/rabobank-cdc/DeTTECT) · MITRE ATT&CK Data Sources (data components model) · Sensor Mappings to ATT&CK, Center for Threat-Informed Defense (https://github.com/center-for-threat-informed-defense/sensor-mappings-to-attack) · OSSEM (https://github.com/OTRF/OSSEM) · MITRE CAR (https://car.mitre.org)

@@ -93,4 +93,27 @@ Score: Specificity 3 · Testability 3 · Falsifiability 3 · Relevance 3 · Pyra
 
 ---
 
+## 5. Multi-tenant: campaign hypothesis vs. instance binding
+
+*Optional — only for teams running [multi-tenant mode](../docs/multi_tenant_operation.md). Single-org hunts use §1–§4 as written.*
+
+The SMART template says "present in **our** environment". Across tenants, split it in two:
+
+| Part | Wording | Scored |
+|---|---|---|
+| **Campaign hypothesis** | Behavior + ATT&CK + data *components* (not log sources), tenant-neutral | Once, with the §2 rubric |
+| **Instance binding** | "…in [tenant]'s [log sources] over [window ≤ tenant retention]" | Per tenant: Measurable, Achievable and Time-bound are re-checked for each instance |
+
+```
+Campaign:  HUNT-042 — AS-REP Roasting (T1558.004), Authentication: Kerberos TGT
+           requests with pre-auth type 0 from non-DC sources.
+Instance:  HUNT-042-<TENANT> — in <tenant>'s Windows Security 4768 over the last
+           30 days (retention 90d), validated by cross-referencing <tenant>'s
+           service account inventory within one sprint.
+```
+
+A hypothesis can score 15 at campaign level and still be unachievable for one tenant (missing source, retention shorter than the window). That is a per-instance NO-GO, not a rubric failure.
+
+---
+
 **References:** SMART criteria (Unified Threat Hunting Process Step 2) · ABLE from the PEAK Threat Hunting Framework (Splunk) · Pyramid of Pain (David Bianco) · hypothesis backlog feeds — HEARTH (https://github.com/THORCollective/HEARTH)

@@ -71,4 +71,22 @@ Split activity from outcome. Report both; lead with outcome.
 
 ---
 
+## 5. Multi-tenant metrics
+
+*Optional — only for teams running [multi-tenant mode](./multi_tenant_operation.md).*
+
+- **Maturity per tenant.** Assess HMM per tenant (the `maturity` field in `tenants/<id>/profile.yaml`) and the hunt program's own maturity separately. A level-3 team hunting a level-1 tenant's data still gets level-1 results.
+- **Outcome metrics per tenant**, plus campaign roll-ups:
+
+| Roll-up metric | Definition |
+|---|---|
+| % of tenants GO | Instances at GO / authorized instances, per campaign |
+| Detections deployed per tenant | Validated DET-XXX enabled per tenant |
+| Fan-out time | Mean time from a peer-tenant finding to fan-out instances opened |
+| Visibility gaps closed per tenant | Gap tickets remediated / raised, per tenant per quarter |
+
+- **Benchmarking.** Show a customer their own figures, and cross-tenant comparison only as an anonymized percentile. Never name another tenant.
+
+---
+
 **References:** Hunting Maturity Model, David Bianco (Sqrrl / ThreatHunting.net) · PEAK Threat Hunting Framework maturity and metrics guidance (Splunk) · Detection Engineering Maturity Matrix, Kyle Bailey · SANS Threat Hunting Survey series (program formalization and effectiveness measurement trends)

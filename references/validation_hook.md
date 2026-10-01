@@ -68,4 +68,14 @@ A **false negative is the most valuable output of this step** — it converts an
 
 ---
 
+## Multi-tenant validation
+
+*Optional — only for teams running [multi-tenant mode](../docs/multi_tenant_operation.md).*
+
+- **Per tenant, under RoE.** Run the test in a tenant only if its profile lists `active-validation` in `allowed_actions` and the approval reference is that tenant's. Otherwise record **NOT AUTHORIZED** for that tenant, not "skipped".
+- **Record per tenant.** One validation record per tenant (`Host / Account` and `Approval ref` are tenant-specific). One tenant's pass proves nothing about another tenant's sensor config or parsing.
+- **Coverage claims are per tenant.** The rolling validation log is keyed by (tenant, ATT&CK technique); a technique counts as validated only for tenants with a passing test.
+
+---
+
 **References:** Atomic Red Team (https://github.com/redcanaryco/atomic-red-team) · MITRE CALDERA (https://github.com/mitre/caldera) · Purple Operations hunt type (DPO) in the Unified Threat Hunting Process

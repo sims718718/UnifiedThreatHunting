@@ -156,6 +156,34 @@ Additional fields provide enrichment but are not required for dashboard function
 | `Process_Command_Line` | Full command line (Windows) |
 | `Message` | PowerShell script block content |
 
+### Multi-tenant Note
+
+*Optional — only for MSSP / multi-tenant deployments ([Multi-Tenant Operation](../docs/multi_tenant_operation.md)). The queries in this guide are written for a single organization and stay as they are.*
+
+In a multi-tenant deployment the summary index becomes a pooled risk stream. `host=DC01` exists in every customer, so aggregating `by host` sums signals from different tenants together. That is a correctness bug, not only a privacy one. Three adjustments:
+
+1. **Add `tenant` at `collect` time.** It becomes a required field alongside `host`:
+
+```spl
+| eval tenant="<tenant_id>"
+| collect index=<summary_index> source=th_detections
+```
+
+2. **Key every aggregation on `(tenant, host)`**, not `host`:
+
+```spl
+| stats dc(keyword_detection) as unique_detections by tenant, host
+```
+
+3. **Add a `$tenant$` dashboard token**, constrained by the viewer's role, next to the existing filters:
+
+```spl
+| search tenant=$tenant$
+| search technology=$technology$
+```
+
+Storage: use a per-tenant summary index (`<tenant>_th_summary`, from the tenant's `profile.yaml`) for MSSP / MDR, where data must stay separated. A shared summary index with the `tenant` field is fine for federated or shared-platform setups, provided role-based index or field restrictions limit who sees which tenant.
+
 ---
 
 ## Building Detections
