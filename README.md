@@ -77,6 +77,8 @@ At a minimum, document:
 
 Document this as an `Environment Profile` block at the top of the Epic. If you are moving fast, the absolute minimum is **SIEM platform** and **environment type**, anything less and your queries will be generic.
 
+> **Hunting across multiple organizations?** (MSSP/MDR, federated subsidiaries, or a shared SIEM platform.) Keep one profile per tenant in a `tenants/<id>/profile.yaml` registry and have each Epic reference `tenant: <id>` instead of embedding the profile. Before feasibility, check authorization: a tenant with no RoE/contract coverage, or a planned action outside its `allowed_actions`, is **NOT AUTHORIZED** and stops there. Single-org teams can skip this. See [Multi-Tenant Operation](./docs/multi_tenant_operation.md).
+
 ---
 
 ## The Trigger
@@ -405,6 +407,7 @@ Finally, thanks for reading, and shoutout to all the authors behind the referenc
 | [Validation Hook](./references/validation_hook.md) | Outcomes — before handoff closes |
 | [Maturity & Metrics](./docs/maturity_metric.md) | Step 7 and program review |
 | [Modern Domain Matrix](./docs/modern_domain_matrix.md) | Step 0 and Step 2 |
+| [Multi-Tenant Operation](./docs/multi_tenant_operation.md) · [tenant template](./tenants/_template/profile.yaml) | Step 0 through program review — optional multi-tenant mode |
  
 ---
 

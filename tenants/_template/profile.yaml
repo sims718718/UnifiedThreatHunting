@@ -1,0 +1,55 @@
+# Tenant profile — schema template
+#
+# Copy this directory to tenants/<tenant-id>/ and fill it in.
+# This replaces the inline "Environment Profile" block on the Epic when
+# running in multi-tenant mode (docs/multi_tenant_operation.md). The instance
+# Epic references the tenant by id (tenant: <tenant-id>) instead of embedding it.
+#
+# Single-org teams do not need this file; Step 0 falls back to the Environment
+# Profile on the Epic.
+#
+# Do not put secrets, credentials or real customer identifiers in this file.
+# Values below are placeholders.
+
+id: example-tenant                 # short, lowercase, unique; used in Jira keys and lookups
+display_name: Example Tenant
+model: mssp                        # mssp | federated | shared-platform
+
+# --- Step 0 context (same fields as the single-org Environment Profile) ---
+siem:
+  product: splunk                  # splunk | sentinel | elastic | chronicle | ...
+  indexes:                         # logical source -> tenant-specific binding
+    windows: example_win
+    vmware: example_vmw
+  summary_index: example_th_summary   # Signal-Based Threat Hunting collect target
+  pipeline: tenants/example-tenant/pipeline.yml   # optional pySigma pipeline
+edr:
+  product: mde                     # crowdstrike | sentinelone | mde | ...
+  tenant_id: "<guid>"
+environment: hybrid                # on-prem | cloud-native | hybrid
+vertical: financial-services       # drives actor relevance
+retention:
+  hot_days: 90
+  cold_days: 365                   # hunt window = min(requested, retention)
+maturity: HMM2                     # HMM0–HMM4, per tenant (docs/maturity_metric.md)
+
+# --- Authorization (checked BEFORE feasibility -> NOT AUTHORIZED) ---
+hunting_authorized: false          # set true only when RoE / contract coverage is on file
+roe_reference: "<contract-or-ticket-ref>"
+allowed_actions:                   # anything not listed needs explicit approval
+  - query
+  - enrich
+  # - live-response
+  # - memory-capture
+  # - active-validation            # Atomic Red Team / CALDERA (references/validation_hook.md)
+
+# --- Outcomes ---
+escalation:
+  ir_contact: soc@example.com
+  sla_hours: 4
+
+# --- Data governance ---
+data_residency: EU                 # roll-ups must not move data across this boundary
+sharing:
+  tlp_default: AMBER
+  allow_anonymized_rollup: false   # true only with contract permission (cross-tenant signals)

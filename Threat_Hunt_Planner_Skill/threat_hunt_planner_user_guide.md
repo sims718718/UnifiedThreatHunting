@@ -119,6 +119,8 @@ Before generating the plan, the planner captures your environment to ensure all 
 
 > **Express path:** If you're in a hurry, just provide your **SIEM platform** and **environment type** — these are the minimum required for non-generic outputs.
 
+> **Multi-tenant (optional):** If you hunt for several organizations (MSSP/MDR, subsidiaries, shared SIEM), name the tenants or point the planner at a `tenants/*/profile.yaml` registry. It reads each tenant's profile, flags tenants that are **NOT AUTHORIZED** (no RoE, or an action outside `allowed_actions`) before feasibility, and produces one **Campaign** plus one Epic per authorized tenant with a tenant × data-component feasibility matrix. With no registry and no tenants named, it behaves exactly as before. See [Multi-Tenant Operation](../docs/multi_tenant_operation.md).
+
 ---
 
 ### Step 1 — Identify the Triggering Event

@@ -94,6 +94,21 @@ Hunt finding → DET-XXX draft → peer review (1 detection engineer)
 
 Detections are versioned in the detection repo, not in the hunt ticket. The hunt Task links to the merged rule and closes.
 
+### Multi-tenant promotion
+
+*Optional — only for teams running [multi-tenant mode](../docs/multi_tenant_operation.md).*
+
+```
+Hunt finding (any instance) → DET-XXX draft → peer review → merge to SHARED detection repo (Sigma, no tenant identifiers)
+   → per-tenant deployment: compile via tenant pipeline + tenant tuning overlay / allowlist
+   → per-tenant validation (where RoE allows) → enable for that tenant
+   → 30-day post-deployment review PER TENANT
+```
+
+- A rule may be enabled for a subset of tenants; record which in the handoff (section 9 result per tenant).
+- Tuning lives in per-tenant overlays, never in the shared logic, so one tenant's allowlist does not leak into another's rule.
+- Section 7 false-positive volume and section 10 volume estimate are stated per tenant.
+
 ---
 
 **References:** Alerting and Detection Strategy framework, Palantir (https://github.com/palantir/alerting-detection-strategy-framework) · Summiting the Pyramid, Center for Threat-Informed Defense (https://center-for-threat-informed-defense.github.io/summiting-the-pyramid/) · Sigma (https://github.com/SigmaHQ/sigma) · Pyramid of Pain (David Bianco)
