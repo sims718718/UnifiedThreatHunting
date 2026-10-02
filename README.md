@@ -383,7 +383,9 @@ Automation and AI should focus on:
 * Alerting on baseline deviations or visibility gaps
 * Developing **and** challenging initial hypotheses
 
-I have helped automate the hunt planning process by developing a **threat-hunt-planner skill**. This does not automate hunting per se, but gives you an initial hunt plan grounded in this Unified Hunting Process. The goal is to get analysts into hunting faster while also making the process more repeatable. This skill should be treated as a draft, challenge it to ensure it meets the objectives you set. → [threat-hunt-planner user guide](./Threat_Hunt_Planner_Skill/threat-hunt-planner%20(2).skill)
+I have helped automate the hunt planning process by developing a **threat-hunt-planner skill**. This does not automate hunting per se, but gives you an initial hunt plan grounded in this Unified Hunting Process. The goal is to get analysts into hunting faster while also making the process more repeatable. This skill should be treated as a draft, challenge it to ensure it meets the objectives you set. → [threat-hunt-planner user guide](./Threat_Hunt_Planner_Skill/threat_hunt_planner_user_guide.md)
+
+**Note**: The Threat Hunt Planner skill has been further integrated into the following project [agentic-threat-intel-framework](https://github.com/sims718718/agentic-threat-intel-framework). CTI is now built into the pipeline along with detection engineering and validation gates for each step.
 
 For data exploration techniques that feed the execution phase of any hunt, see [/Data_Analysis](https://github.com/sims718718/UnifiedThreatHunting/tree/main/Data_Analysis).
 
