@@ -5,7 +5,7 @@
 **Hosts in scope:** `WEB01` (IIS customer portal), `DB01` (SQL Server), `BKP01` (Linux backup host)
 **Event date:** 2026-10-20 (all times UTC)
 
-**All analysis was done by myself and report was simply cleaned up with AI. AI performed zerio analysis of this scenario.**
+**All analysis was done by myself and report was simply cleaned up with AI. AI performed zero analysis of this scenario.**
 
 > All credentials in this write-up come from a synthetic dataset. The SQL password is still masked (`<REDACTED>`) in text and screenshots as good practice.
 
