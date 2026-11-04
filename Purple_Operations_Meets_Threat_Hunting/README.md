@@ -21,13 +21,23 @@ Synthetic results support, but do not replace, live validation. The guide explai
 | File | What it is |
 |---|---|
 | [Purple_Operations_with_EvidenceForge.md](Purple_Operations_with_EvidenceForge.md) | The guide: why, where it fits in the UTHF lifecycle, the nine-phase loop, scoring, defect triage, and a full walkthrough of the `calloway-php2shell` scenario |
-| `calloway-php2shell-splunk.zip` | *To be added.* The generated EvidenceForge output for the walkthrough scenario (logs, `GROUND_TRUTH.md`, scenario YAML) |
 
-The walkthrough guide refers to this scenario's ground truth and Splunk hunt. The zip lets others reload the same data and reproduce the hunt.
+**The generated dataset is not stored in this repo.** The EvidenceForge output for the walkthrough scenario (logs plus `GROUND_TRUTH.md`) is too large to commit. The guide quotes the relevant ground truth and hunt results directly, so it can be read without the data.
+
+## Reproducing the dataset
+
+EvidenceForge generation is deterministic, so the dataset can be rebuilt instead of downloaded:
+
+1. Install [EvidenceForge](https://github.com/Cisco-Talos/EvidenceForge) (`git clone`, then `uv sync`).
+2. Write or obtain the scenario YAML for `calloway-php2shell`. The attack steps, accounts and red herrings are described in section 7 of the guide.
+3. Run `uv run eforge generate <scenario.yaml> -o <dir> --seed <N>` with the `splunk` target.
+4. Record the EvidenceForge version and seed with the hunt record. The same inputs and seed give the same output.
+
+Output from a rebuilt scenario may not match the walkthrough record for record if the tool version or scenario differs, so compare against the generated `GROUND_TRUTH.md`, not the guide's figures.
 
 ## Using the dataset
 
-1. Unzip the output and keep `GROUND_TRUTH.md` sealed until your hunt is written up.
+1. Keep `GROUND_TRUTH.md` sealed until your hunt is written up.
 2. Load the logs into a dedicated Splunk index (the walkthrough uses `evidenceforge`) using the `splunk` output target.
 3. Check timestamps first. In the walkthrough run, Splunk `_time` came from index time, not event time, so use the event's own `ts` or `timestamp_ms` until extraction is fixed.
 4. Hunt blind, then score against ground truth with the scorecard in the guide.
@@ -36,8 +46,7 @@ The walkthrough guide refers to this scenario's ground truth and Splunk hunt. Th
 
 - The data is synthetic. Credentials, domains and IPs in it are generated. Keep it out of production indexes.
 - The CVE identifiers in the scenario are scenario-defined, not real.
-- Record the EvidenceForge version and seed alongside the zip, so the run can be regenerated.
-- GitHub rejects files over 100 MB. If the zip is larger, attach it to a release instead and link it here.
+- GitHub rejects files over 100 MB, which is why the dataset is not committed here.
 
 ## Related
 
