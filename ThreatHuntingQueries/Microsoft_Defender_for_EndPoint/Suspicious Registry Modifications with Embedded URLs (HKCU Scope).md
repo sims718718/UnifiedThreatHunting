@@ -37,8 +37,10 @@ DeviceRegistryEvents
 | where ActionType has_any ('RegistryValueSet','RegistryKeyCreated')
 | where RegistryValueData has_any('http','https')  // Look for common protocols indicating web traffic
 | where RegistryKey has "HKEY_CURRENT_USER"
-| where RegistryValueData !contains //exceptions for your envionrment
-| where RegistryValueName !contains //exceptions for your envionrment
+// Optional exclusions: uncomment and replace the placeholder with a known-good
+// value from your environment to reduce noise (e.g. an approved URL or value name).
+// | where RegistryValueData !contains "<known-good value>"
+// | where RegistryValueName !contains "<known-good value>"
 | project 
     Timestamp, 
     DeviceName, 
